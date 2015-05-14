@@ -10,18 +10,18 @@
         <form action="" method="post">
             <input type="hidden" name="<?php echo $this->security->getTokenKey();?>" value="<?php echo $this->security->getToken();?>"/>
             <div class="twelve columns">
-                <label for="">标题</label>
+                <label for="">Title</label>
                 <input name="title" type="text" class="u-full-width" required/>
             </div>
             <div class="twelve columns">
-                <label for="">链接</label>
+                <label for="">Link</label>
                 <input name="link" type="url" class="u-full-width" required/>
             </div>
             <div class="twelve columns">
-                <label for="">正文</label>
-                <textarea name="body" cols="30" rows="10" class="u-full-width" placeholder="支持 Markdown"></textarea>
+                <label for="">Text</label>
+                <textarea name="body" cols="30" rows="10" class="u-full-width" placeholder="Markdown is supported."></textarea>
             </div>
-            <input type="submit" class="button-primary u-pull-right" value="提交"/>
+            <input type="submit" class="button-primary u-pull-right" value="Submit"/>
         </form>
     </div>
 
