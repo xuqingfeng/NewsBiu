@@ -1,0 +1,20 @@
+<?php
+/**
+ * Author: xuqingfeng <js-xqf@hotmail.com>
+ * Date: 15/4/27
+ */
+
+?>
+
+<div class="container">
+    <div class="row">
+        <div class="one column">
+            <img src="<?php echo $user->avatarUrl; ?>" alt="" class="profile-img"/>
+        </div>
+        <div class="eleven columns">
+            加入于 - <?php echo $user->createAt;?>
+            <br/>
+            声望 - <?php echo $user->reputation;?>
+        </div>
+    </div>
+</div>

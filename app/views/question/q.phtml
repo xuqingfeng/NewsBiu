@@ -1,0 +1,53 @@
+<?php
+/**
+ * Author: xuqingfeng <js-xqf@hotmail.com>
+ * Date: 15/4/24
+ */
+?>
+
+<div class="container">
+    <div class="row">
+        <div class="center-text two columns">
+            <div data-icon="ei-chevron-up" data-size="m"></div>
+            <div data-icon="ei-chevron-down" data-size="m"></div>
+            <div><?php echo $question->voteUp - $question->voteDown; ?></div>
+        </div>
+        <div class="ten columns">
+            <div>
+                <div class="detail-title">
+                    <?php echo $question->title; ?>
+                </div>
+                <div class="split"></div>
+                <?php echo $question->parsedBody; ?>
+                <br/>
+                <?php echo $question->publisher. ' • ' . $question->createAt; ?>
+            </div>
+        </div>
+    </div>
+    <!-- get replies   -->
+    <hr/>
+    <div></div>
+
+    <?php
+    $auth = $this->session->get('auth');
+    if ($auth):
+        $name = $auth['name'];
+        $user = new User();
+        $u = $user->getUserByName($name);
+        ?>
+        <div class="row">
+            <div class="two columns" align="center">
+                <img src="<?php echo $u->avatarUrl;?>" class="profile-img"/>
+            </div>
+            <div class="ten columns">
+                <form action="" method="post">
+                    <textarea name="reply" cols="30" rows="10" class="u-full-width"></textarea>
+                    <input type="submit" class="button-primary u-pull-right" value="回复"/>
+                </form>
+            </div>
+        </div>
+    <?php
+    endif;
+    ?>
+
+</div>

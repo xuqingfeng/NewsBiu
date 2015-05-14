@@ -1,0 +1,24 @@
+<?php
+/**
+ * Author: xuqingfeng <js-xqf@hotmail.com>
+ * Date: 15/4/24
+ */
+?>
+
+<div class="container">
+    <div class="row">
+        <form action="" method="post">
+            <input type="hidden" name="<?php echo $this->security->getTokenKey();?>" value="<?php echo $this->security->getToken();?>"/>
+            <div class="twelve columns">
+                <label for="">标题</label>
+                <input name="title" type="text" class="u-full-width" required/>
+            </div>
+            <div class="twelve columns">
+                <label for="">正文</label>
+                <textarea name="body" cols="30" rows="10" class="u-full-width" placeholder="支持 Markdown"></textarea>
+            </div>
+            <input type="submit" class="button-primary u-pull-right" value="提交"/>
+        </form>
+    </div>
+
+</div>

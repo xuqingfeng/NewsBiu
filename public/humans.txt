@@ -1,0 +1,14 @@
+/* SITE */
+last update: 2015/05/14
+github repo: https://github.com/xuqingfeng/NewsBiu
+
+/* FOUNDER */
+name : xuqingfeng
+email: js-xqf@hotmail.com
+weibo: jsxqf
+
+/* CONTRIBUTOR */
+
+
+/* MOTIVATION */
+Share something good with the World

@@ -1,0 +1,128 @@
+<?php
+/**
+ * Author: xuqingfeng <js-xqf@hotmail.com>
+ * Date: 15/4/3
+ */
+?>
+<!---->
+<!--<div class="container">-->
+<!--    <nav>-->
+<!--        <ul class="navbar-list">-->
+<!--            <li class="navbar-item"><a href="/home" class="navbar-link">Home</a></li>-->
+<!--            <li class="navbar-item"><a href="/qna" class="navbar-link">Questions</a></li>-->
+<!--            --><?php
+//            //                var_dump($tab);
+//            //                echo 'tab in cookie:'.$this->cookies->get('NEWSBIUTAB')->getValue();
+//            //            var_dump($this->cookies->get('NEWSBIUTAB')->getValue());
+//            if ('home' == $tab):
+//                ?>
+<!--                <li class="navbar-item"><a href="/news/new" class="navbar-link">New</a></li>-->
+<!--            --><?php
+//            endif;
+//            ?>
+<!--            --><?php
+//            if ('qna' == $tab):
+//                ?>
+<!--                <li class="navbar-item"><a href="/question/new" class="navbar-link">Ask</a></li>-->
+<!--            --><?php
+//            endif;
+//            ?>
+<!--        </ul>-->
+<!--    </nav>-->
+<!---->
+<!--</div>-->
+
+<div class="container">
+    <?php
+    //                var_dump($tab);
+    //                echo 'tab in cookie:'.$this->cookies->get('NEWSBIUTAB')->getValue();
+    //            var_dump($this->cookies->get('NEWSBIUTAB')->getValue());
+    $homeActive = "";
+    $questionsActive = "";
+    if ('home' == $tab) {
+        $homeActive = "active-tab";
+    }
+    if ('qna' == $tab) {
+        $questionsActive = "active-tab";
+    }
+    ?>
+    <a href="/home" class="tab <?php echo $homeActive;?>">Home</a>
+    <a href="/qna" class="tab <?php echo $questionsActive;?>">Questions</a>
+</div>
+
+<div class="container">
+    <?php
+    if ('home' == $tab):
+        ?>
+        <a href="/news/new" class="new-button u-pull-right">New</a>
+    <?php
+    endif;
+    ?>
+    <?php
+    if ('qna' == $tab):
+        ?>
+        <a href="/question/new" class="new-button u-pull-right">Ask</a>
+    <?php
+    endif;
+    ?>
+</div>
+
+<div class="container">
+    <?php
+    if ('home' == $tab):
+        $news = new News();
+        $latestNews = $news->getLatestNews();
+        foreach ($latestNews as $n):
+            ?>
+            <div class="row split">
+                <div class="center-text one column">
+                    <div data-icon="ei-chevron-up" data-size="s"></div>
+                    <?php echo $n->voteUp - $n->voteDown;?>
+                </div>
+                <div class="eleven columns">
+                    <div><a href="/n/<?php echo $n->date . '/' . $n->time;?>" class="main-title"><?php echo $n->title;?></a>
+
+                        <div class="u-pull-right">
+                            <a href="<?php echo $n->link;?>" target="_blank"><?php echo $n->showLink;?></a>
+                        </div>
+                        <!--                    <div class="u-pull-right">-->
+                        <!--                        <div data-icon="ei-link" data-size="s"></div>-->
+                        <!--                    </div>-->
+                    </div>
+                    <div><?php echo $n->publisher . ' • ' . $n->createAt;?></div>
+                </div>
+            </div>
+        <?php
+        endforeach;
+    endif;
+    ?>
+
+    <?php
+    if ('qna' == $tab):
+        $question = new Question();
+        $latestQuestions = $question->getLatestQuestions();
+        foreach ($latestQuestions as $q):
+            ?>
+            <div class="row split">
+                <div class="center-text one column">
+                    <div data-icon="ei-chevron-up" data-size="s"></div>
+                    <?php echo $q->voteUp - $q->voteDown;?>
+                </div>
+                <div class="eleven columns">
+                    <div>
+                        <a href="/q/<?php echo $q->date . '/' . $q->time;?>" class="main-title"><?php echo $q->title;?></a>
+                    </div>
+                    <div><?php echo $q->publisher . ' • ' . $q->createAt;?></div>
+                </div>
+            </div>
+        <?php
+        endforeach;
+    endif;
+    ?>
+
+</div>
+
+<div class="container">
+    <br/>
+    <a href="" class="u-pull-right">more</a>
+</div>
