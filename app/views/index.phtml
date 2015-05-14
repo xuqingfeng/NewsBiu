@@ -43,7 +43,7 @@
                         <!--                            <div data-icon="ei-bell" data-size="s"></div>-->
                         <!--                        </div>-->
                         <div class="u-pull-right">
-                            <img src="<?php echo $u->avatarUrl;?>" class="profile-img"/>
+                            <a href="/m/<?php echo $name;?>"><img src="<?php echo $u->avatarUrl;?>" class="profile-img"/></a>
                         </div>
 
                     <?php
@@ -92,7 +92,7 @@
             if (!auth) {
                 swal({
                     title: "Please login first !",
-                    text: "Github account only for now",
+                    text: "Github account only.",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
