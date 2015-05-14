@@ -1,5 +1,5 @@
 <div align="center">
-![](icon@3x.png)
+<img src="https://github.com/xuqingfeng/NewsBiu/blob/master/icon.png" alt="icon">
 </div>
 ##News Biu
 
