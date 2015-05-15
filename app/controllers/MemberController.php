@@ -113,6 +113,10 @@ class MemberController extends BaseController {
     // member settings
     public function settingsAction(){
 
+    }
+
+    // notifications
+    public function notificationsAction(){
 
     }
 

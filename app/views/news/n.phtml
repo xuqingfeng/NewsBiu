@@ -7,10 +7,10 @@
 
 <div class="container">
     <div class="row">
-        <div class="center-text two columns">
+        <div class="center-text two columns vote">
             <div data-icon="ei-chevron-up" data-size="m"></div>
             <div data-icon="ei-chevron-down" data-size="m"></div>
-            <div><?php echo $news->voteUp - $news->voteDown; ?></div>
+            <div><?php echo ($news->voteUp - $news->voteDown); ?></div>
         </div>
         <div class="ten columns">
             <div>
@@ -77,7 +77,7 @@
                            value="<?php echo $this->security->getToken();?>"/>
                     <input type="hidden" name="targetType" value="news"/>
                     <textarea name="reply" cols="30" rows="10" class="u-full-width"></textarea>
-                    <input type="submit" class="button-primary u-pull-right" value="回复"/>
+                    <input type="submit" class="button-primary u-pull-right" value="Reply"/>
                 </form>
             </div>
         </div>

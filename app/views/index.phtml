@@ -43,8 +43,14 @@
                         <!--                            <div data-icon="ei-bell" data-size="s"></div>-->
                         <!--                        </div>-->
                         <div class="u-pull-right">
-                            <a href="/m/<?php echo $name;?>"><img src="<?php echo $u->avatarUrl;?>" class="profile-img"/></a>
-                            <a href="/settings"><div data-icon="ei-gear" data-size="s"></div></a>
+                            <a href="/m/<?php echo $name;?>"><img src="<?php echo $u->avatarUrl;?>"
+                                                                  class="profile-img"/></a>
+                            <a href="/settings">
+                                <div data-icon="ei-gear" data-size="s"></div>
+                            </a>
+                            <a href="/notification">
+                                <div data-icon="ei-bell" data-size="s"></div>
+                            </a>
                         </div>
 
                     <?php
@@ -69,9 +75,7 @@
     <?php echo $this->getContent(); ?>
 
     <!--    no whitespace !!-->
-    <div>
-        <div class="color-one-divider"></div><div class="color-two-divider"></div><div class="color-three-divider"></div><div class="color-four-divider"></div>
-    </div>
+    <div><div class="color-one-divider"></div><div class="color-two-divider"></div><div class="color-three-divider"></div><div class="color-four-divider"></div></div>
 
     <div class="container">
         <div class="u-pull-left"><a href="/humans.txt">About</a></div>
@@ -86,10 +90,29 @@
 
         var auth =<?php if(isset($auth)){echo "true";}else{echo "false";}?>;
 
+        // homepage
         $('a.new-button').on('click', function (evt) {
             evt.preventDefault();
             var href = $(this).attr('href');
 
+            if (checkAuth()) {
+                window.location.href = href;
+            }
+        });
+
+        // detail page
+        $('.vote').on('click', '.icon--ei-chevron-up', function(){
+            if(checkAuth()){
+                $(this).addClass('vote-active');
+            }
+        });
+        $('.vote').on('click', '.icon--ei-chevron-down', function(){
+            if(checkAuth()){
+                $(this).addClass('vote-active');
+            }
+        });
+
+        function checkAuth() {
             if (!auth) {
                 swal({
                     title: "Please login first !",
@@ -101,17 +124,16 @@
                     closeOnConfirm: true
                 }, function (isConfirm) {
 //                    swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                    if(isConfirm){
-                        console.log('OK');
+                    if (isConfirm) {
                         window.location.href = "/member/login";
-                    }else{
-                        console.log('Cancel');
+                    } else {
+                        return false;
                     }
                 });
-            }else{
-                window.location.href = href;
+            } else {
+                return true;
             }
-        });
+        }
 
     })();
 </script>

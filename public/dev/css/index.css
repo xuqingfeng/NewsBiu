@@ -161,3 +161,13 @@ ul {
     width: 25%;
 }
 
+.vote > .icon--ei-chevron-up:hover {
+    cursor: pointer;
+}
+.vote > .icon--ei-chevron-down:hover {
+    cursor: pointer;
+}
+.vote-active {
+    /* not color */
+    fill: #CFC7A1;
+}

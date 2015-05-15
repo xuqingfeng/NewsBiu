@@ -62,6 +62,10 @@ try {
             'controller' => 'member',
             'action'     => 'settings'
         ]);
+        $router->add('/notifications', [
+            'controller' => 'member',
+            'action'     => 'notifications'
+        ]);
 
         return $router;
     }, true);
