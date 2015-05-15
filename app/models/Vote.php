@@ -13,13 +13,13 @@ class Vote extends \Phalcon\Mvc\Collection {
     public $createAt;
     public $updateAt;
 
-    private $news;
-    private $question;
+//    private $news;
+//    private $question;
 
     public function initialize() {
 
-        $this->news = new News();
-        $this->question = new Question();
+//        $this->news = new News();
+//        $this->question = new Question();
     }
 
     public function addVote($params) {
@@ -56,7 +56,10 @@ class Vote extends \Phalcon\Mvc\Collection {
 
     public function up($params) {
 
-        $vote = self::findFirst([
+//        $this->addVote($params);
+//        return;
+
+        $v = self::findFirst([
             [
                 'targetId'   => $params['targetId'],
                 'targetType' => $params['targetType'],
@@ -64,23 +67,27 @@ class Vote extends \Phalcon\Mvc\Collection {
             ]
         ]);
 
-        if (isset($vote)) {
+        // isset is wrong - wtf
+        if ($v) {
             // vote before
             $now = date('Y-m-d H:i:s');
-            $vote->voteValue = 1;
-            $vote->updateAt = $now;
-            $vote->save();
+            $v->voteValue = 1;
+            $v->updateAt = $now;
+            $v->save();
         } else {
             // else create
-            $this->addVote($params);
+            $vote = new Vote();
+            $vote->addVote($params);
         }
 
         // update news/question
-        if ('news' == $params['targetType']) {
-            $this->news->voteUp($params);
-        } else if ('question' == $params['targetType']) {
-            $this->question->voteUp($params);
-        }
+//        if ('news' == $params['targetType']) {
+//            $news = new News();
+//            $news->voteUp($params);
+//        } else if ('question' == $params['targetType']) {
+//            $question = new Question();
+//            $question->voteUp($params);
+//        }
 
     }
 
@@ -103,9 +110,11 @@ class Vote extends \Phalcon\Mvc\Collection {
         }
 
         if('news'==$params['targetType']){
-            $this->news->voteDown($params);
+            $news = new News();
+            $news->voteDown($params);
         }else if('question'==$params['targetType']){
-            $this->question->voteDown($params);
+            $question = new Question();
+            $question->voteDown($params);
         }
 
     }
@@ -130,9 +139,11 @@ class Vote extends \Phalcon\Mvc\Collection {
                 'voteValue' => $originVoteValue
             ];
             if ('news' == $params['targetType']) {
-                $this->news->cancelVote($p);
+                $news = new News();
+                $news->cancelVote($p);
             } else if ('question' == $params['targetType']) {
-                $this->question->cancelVote($p);
+                $question = new Question();
+                $question->cancelVote($p);
             }
 
         } else {

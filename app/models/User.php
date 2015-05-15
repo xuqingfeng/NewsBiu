@@ -22,7 +22,9 @@ class User extends \Phalcon\Mvc\Collection {
     private $config;
     private $session;
 
-    private $vote;
+    // !! 500
+    // xunhuan
+//    private $vote;
 
 
     public function initialize() {
@@ -31,7 +33,7 @@ class User extends \Phalcon\Mvc\Collection {
         $this->config = $this->getDI()->getShared('config');
         $this->session = $this->getDI()->getShared('session');
 
-        $this->vote = new Vote();
+//        $this->vote = new Vote();
     }
 
     public function userExist($name) {
@@ -234,9 +236,11 @@ class User extends \Phalcon\Mvc\Collection {
 
     public function getVoteValue($params) {
 
-        $v = $this->vote->getVote($params);
+        $vote = new Vote();
+        $v = $vote->getVote($params);
         if (isset($v)) {
             return $v->voteValue;
+//            return 0;
         } else {
             return 0;
         }

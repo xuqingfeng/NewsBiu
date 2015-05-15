@@ -144,15 +144,16 @@
 
         // actionValue: 1-voteUp 0-cancel -1-voteDown
         function vote(targetId, targetType, voteValue) {
+            console.log('vote:'+targetId+'-'+targetType+'-'+voteValue);
             $.ajax({
                 url: voteUrl,
                 type: 'POST',
-                data: {targetId: targetId, targetType: type, voteValue: voteValue},
+                data: {targetId: targetId, targetType: targetType, voteValue: voteValue},
                 success: function (data) {
                     console.log(data);
                 },
-                error: function () {
-                    console.log('error');
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus+'-'+errorThrown);
                 },
                 complete: function () {
                     console.log('complete');

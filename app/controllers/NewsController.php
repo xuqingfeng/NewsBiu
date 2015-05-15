@@ -16,23 +16,31 @@ class NewsController extends BaseController {
         $date = $this->dispatcher->getParam('date');
         $time = $this->dispatcher->getParam('time');
 
+//        $user = new User();
+//        print_r($user->getNameBySession());
+//        exit;
+
         if ($this->request->isGet()) {
             $news = new News();
             $n = $news->getNews($date, $time);
             $reply = new Reply();
             $replies = $reply->getReplies("$date/$time", 'news');
             // login or not
+            $voteValue = 0;
             if ($this->session->has('auth')) {
                 // check has voted
                 $user = new User();
+                // use two session together?
+                $auth = $this->session->get('auth');
+                $voter = $auth['name'];
+//                $voter = $user->getNameBySession();
                 $params = [
                     'targetId'   => $date . '/' . $time,
                     'targetType' => 'news',
-                    'voter'      => $user->getNameBySession()
+                    // 不能使用表达式 ？
+                    'voter'      => $voter
                 ];
                 $voteValue = $user->getVoteValue($params);
-            } else {
-                $voteValue = 0;
             }
 
             if ($n) {

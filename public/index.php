@@ -20,6 +20,9 @@ try {
 
     date_default_timezone_set('Asia/Shanghai');
 
+//    print_r(get_loaded_extensions());
+//    exit;
+
     $config = new \Phalcon\Config\Adapter\Ini(ROOT_PATH . 'app/config/config.dev.ini');
 
     $loader = new \Phalcon\Loader();
@@ -141,4 +144,6 @@ try {
 
 } catch (\Phalcon\Exception $e) {
     echo $e->getMessage();
+}catch(\Exception $x){
+    echo $x->getMessage();
 }

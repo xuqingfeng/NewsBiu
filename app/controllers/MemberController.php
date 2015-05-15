@@ -12,10 +12,14 @@ class MemberController extends BaseController {
     // member login
     public function loginAction() {
 
-        // fake
+        // fake xuqingfeng
+//        $this->session->set('auth', [
+//            'name' => 'xuqingfeng',
+//            'role' => 'root'
+//        ]);
         $this->session->set('auth', [
-            'name' => 'xuqingfeng',
-            'role' => 'root'
+            'name' => 'jsxqf',
+            'role' => 'member'
         ]);
         $this->response->redirect($this->config->environment->homepage, true);
 
@@ -127,7 +131,7 @@ class MemberController extends BaseController {
         if ($this->request->isPost()) {
             $targetId = $this->request->getPost('targetId');
             $targetType = $this->request->getPost('targetType');
-            $voteValue = $this->request->getPost('actionValue');
+            $voteValue = (int)$this->request->getPost('voteValue');
             $user = new User();
             $voter = $user->getNameBySession();
             if (isset($targetId) && isset($targetType) && isset($voteValue)) {
@@ -142,11 +146,25 @@ class MemberController extends BaseController {
                     'createAt'   => $now,
                     'updateAt'   => $now
                 ];
+//                $vote->addVote($params);
+//                exit;
+
+//                $msg = [
+//                    'success'=>true,
+//                    'data'=>$params
+//                ];
+//                echo json_encode($msg);
+//                exit;
                 if ($voteValue === 1) {
+//                    $msg = [
+//                        'data' => 'vote 1'
+//                    ];
+//                    echo json_encode($msg);
+//                    exit;
                     // vote up
                     $params['voteValue'] = 1;
                     // weird - safe
-                    $vote->cancel($params);
+//                    $vote->cancel($params);
                     $vote->up($params);
                 } else if ($voteValue === 0) {
                     $vote->cancel($params);
@@ -165,9 +183,14 @@ class MemberController extends BaseController {
                 ];
             }
         } else {
-
+            $msg = [
+                'success' => false,
+                'message' => 'Post is required !'
+            ];
         }
 
+        echo json_encode($msg);
+        exit;
         $this->view->disable();
     }
 
