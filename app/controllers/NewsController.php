@@ -21,10 +21,28 @@ class NewsController extends BaseController {
             $n = $news->getNews($date, $time);
             $reply = new Reply();
             $replies = $reply->getReplies("$date/$time", 'news');
+            // login or not
+            if ($this->session->has('auth')) {
+                // check has voted
+                $user = new User();
+                $params = [
+                    'targetId'   => $date . '/' . $time,
+                    'targetType' => 'news',
+                    'voter'      => $user->getNameBySession()
+                ];
+                $voteValue = $user->getVoteValue($params);
+            } else {
+                $voteValue = 0;
+            }
+
             if ($n) {
                 $this->view->setVars([
-                    'news'    => $n,
-                    'replies' => $replies
+                    'news'      => $n,
+                    'replies'   => $replies,
+                    'date'      => $date,
+                    'time'      => $time,
+                    'type'      => 'news',
+                    'voteValue' => $voteValue
                 ]);
             } else {
                 return $this->dispatcher->forward([
@@ -57,8 +75,12 @@ class NewsController extends BaseController {
                     ]);
                 }
             } else {
-                echo 'csrf fail';
-                $this->view->disable();
+//                echo 'csrf fail';
+//                $this->view->disable();
+                return $this->dispatcher->forward([
+                    'controller' => 'error',
+                    'action'     => 'index'
+                ]);
             }
         }
 

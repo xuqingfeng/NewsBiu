@@ -111,13 +111,64 @@ class MemberController extends BaseController {
     }
 
     // member settings
-    public function settingsAction(){
+    public function settingsAction() {
 
     }
 
     // notifications
-    public function notificationsAction(){
+    public function notificationsAction() {
 
+    }
+
+    // vote up
+    public function voteAction() {
+
+        $msg = [];
+        if ($this->request->isPost()) {
+            $targetId = $this->request->getPost('targetId');
+            $targetType = $this->request->getPost('targetType');
+            $voteValue = $this->request->getPost('actionValue');
+            $user = new User();
+            $voter = $user->getNameBySession();
+            if (isset($targetId) && isset($targetType) && isset($voteValue)) {
+                // target exist
+                $vote = new Vote();
+                $now = date('Y-m-d H:i:s');
+                $params = [
+                    'targetId'   => $targetId,
+                    'targetType' => $targetType,
+                    'voter'      => $voter,
+                    'voteValue'  => 0,
+                    'createAt'   => $now,
+                    'updateAt'   => $now
+                ];
+                if ($voteValue === 1) {
+                    // vote up
+                    $params['voteValue'] = 1;
+                    // weird - safe
+                    $vote->cancel($params);
+                    $vote->up($params);
+                } else if ($voteValue === 0) {
+                    $vote->cancel($params);
+                } else if ($voteValue === 1) {
+                    $params['voteValue'] = -1;
+                    $vote->cancel($params);
+                    $vote->down($params);
+                }
+
+                // get vote count
+
+            } else {
+                $msg = [
+                    'success' => false,
+                    'message' => 'Missing parameters !'
+                ];
+            }
+        } else {
+
+        }
+
+        $this->view->disable();
     }
 
 }

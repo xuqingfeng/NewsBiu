@@ -16,14 +16,22 @@ class User extends \Phalcon\Mvc\Collection {
     public $createAt;
     public $updateAt;
 
+    public static $voteUpReputation = 5;
+    public static $voteDownReputation = 2;
+
     private $config;
     private $session;
+
+    private $vote;
+
 
     public function initialize() {
 
         // get service
         $this->config = $this->getDI()->getShared('config');
         $this->session = $this->getDI()->getShared('session');
+
+        $this->vote = new Vote();
     }
 
     public function userExist($name) {
@@ -90,12 +98,14 @@ class User extends \Phalcon\Mvc\Collection {
         return $user;
     }
 
-    public function getNameBySession(){
+    public function getNameBySession() {
 
-        if($this->session->has('auth')){
+        if ($this->session->has('auth')) {
             $auth = $this->session->get('auth');
+
             return $auth['name'];
         }
+
         return 'unknown';
     }
 
@@ -160,6 +170,77 @@ class User extends \Phalcon\Mvc\Collection {
 
             return [];
         }
+    }
+
+    public function votedUp($params) {
+
+        $user = self::findFirst([
+            [
+                'name' => $params['name']
+            ]
+        ]);
+        if (isset($user)) {
+            $now = date('Y-m-d H:i:s');
+            $user->reputation = $user->reputation + 1 * self::$voteUpReputation;
+            $user->updateAt = $now;
+            $user->save();
+        } else {
+
+        }
+    }
+
+    public function votedDown($params) {
+
+        $user = self::findFirst([
+            [
+                'name' => $params['name']
+            ]
+        ]);
+        if (isset($user)) {
+            $now = date('Y-m-d H:i:s');
+            $user->reputation = $user->reputation - 1 * self::$voteDownReputation;
+            $user->updateAt = $now;
+            $user->save();
+        } else {
+
+        }
+    }
+
+    public function cancelVote($params) {
+
+        $user = self::findFirst([
+            [
+                'name' => $params['name']
+            ]
+        ]);
+        if (isset($user)) {
+            $now = date('Y-m-d H:i:s');
+            if (1 === $params['voteValue']) {
+                $user->reputation = $user->reputation - 1 * self::$voteUpReputation;
+                $user->updateAt = $now;
+                $user->save();
+            } else if (0 === $params['voteValue']) {
+                // do nothing
+            } else if (-1 === $params['voteValue']) {
+                $user->reputation = $user->reputation + 1 * self::$voteDownReputation;
+                $user->updateAt = $now;
+                $user->save();
+            }
+        } else {
+            // user does not exist
+        }
+
+    }
+
+    public function getVoteValue($params) {
+
+        $v = $this->vote->getVote($params);
+        if (isset($v)) {
+            return $v->voteValue;
+        } else {
+            return 0;
+        }
+
     }
 
 }

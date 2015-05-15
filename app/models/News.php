@@ -24,11 +24,15 @@ class News extends \Phalcon\Mvc\Collection {
     private $limit;
     private $parsedown;
 
+    private $user;
+
     public function initialize() {
 
         $this->e = new \Phalcon\Escaper();
         $this->limit = 10;
         $this->parsedown = $this->getDI()->getShared('parsedown');
+
+        $this->user = new User();
     }
 
     public function getDomain($url) {
@@ -87,4 +91,94 @@ class News extends \Phalcon\Mvc\Collection {
 
         return $news;
     }
+
+    public function voteUp($params){
+
+        $news = self::findFirst([
+            [
+                'date'=>$params['date'],
+                'time'=>$params['time']
+            ]
+        ]);
+        if(isset($news)){
+            // publisher can't vote
+            if($params['voter']==$news->publisher){
+                return;
+            }
+            $p = [
+                'name'=>$news->publisher,
+                'voteValue'=>$params['voteValue']
+            ];
+            $now = date('Y-m-d H:i:s');
+            $news->voteUp = $news->voteUp + 1;
+            $news->updateAt = $now;
+            $news->save();
+
+            $this->user->voteUp($p);
+        }
+    }
+
+    public function voteDown($params){
+
+        $news = self::findFirst([
+            [
+                'date'=>$params['date'],
+                'time'=>$params['time']
+            ]
+        ]);
+        if(isset($news)){
+            // publisher can't vote
+            if($params['voter']==$news->publisher){
+                return;
+            }
+            $p = [
+                'name'=>$news->publisher,
+                'voteValue'=>$params['voteValue']
+            ];
+            $now = date('Y-m-d H:i:s');
+            $news->voteDown = $news->voteDown + 1;
+            $news->updateAt = $now;
+            $news->save();
+
+            $this->user->voteDown($p);
+        }
+
+    }
+
+    public function cancelVote($params){
+
+        $news = self::findFirst([
+           [
+               'date'=>$params['date'],
+               'time'=>$params['time']
+           ]
+        ]);
+        if(isset($news)){
+            // publisher can't vote
+            if($params['voter']==$news->publisher){
+                return;
+            }
+            $p = [
+                'name'=>$news->publisher,
+                'voteValue'=>$params['voteValue']
+            ];
+            $now = date('Y-m-d H:i:s');
+            if(1===$params['voteValue']){
+                $news->voteUp = $news->voteUp - 1;
+                $news->updateAt = $now;
+                $news->save();
+            }else if(0===$params['voteValue']){
+                // do nothing
+            }else if(-1===$params['voteValue']){
+                $news->voteDown = $news->voteDown - 1;
+                $news->updateAt = $now;
+                $news->save();
+            }
+
+            $this->user->cancelVote($p);
+        }else{
+            // news does not exist
+        }
+    }
+
 }
