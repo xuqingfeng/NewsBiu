@@ -33,7 +33,7 @@ class Security extends \Phalcon\Mvc\User\Plugin {
                 'question' => ['list', 'q']
             ],
             'memberResources' => [
-                'member'   => ['logout', 'm'],
+                'member'   => ['logout', 'm', 'settings'],
                 'news'     => ['new'],
                 'question' => ['new']
             ],

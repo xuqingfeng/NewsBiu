@@ -110,4 +110,10 @@ class MemberController extends BaseController {
         }
     }
 
+    // member settings
+    public function settingsAction(){
+
+
+    }
+
 }

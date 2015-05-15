@@ -58,6 +58,10 @@ try {
             'action'     => 'm',
             'name'       => 1
         ]);
+        $router->add('/settings', [
+            'controller' => 'member',
+            'action'     => 'settings'
+        ]);
 
         return $router;
     }, true);
