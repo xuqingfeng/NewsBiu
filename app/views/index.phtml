@@ -109,28 +109,29 @@
 
         // detail page
         // show vote info
-        showVoteInfo();
-        function showVoteInfo(){
-            if(1==voteValue){
-                $('.icon--ei-chevron-up').addClass('vote-active');
-            }else if(-1==voteValue){
-                $('.icon--ei-chevron-down').addClass('vote-active');
-            }
-        }
+//        showVoteInfo();
+//        function showVoteInfo(){
+//            if(1==voteValue){
+//                $('.vote').find('.icon--ei-chevron-up').addClass('vote-active');
+//                console.log('find');
+//            }else if(-1==voteValue){
+//                $('.icon--ei-chevron-down').addClass('vote-active');
+//            }
+//        }
         $('.vote').on('click', '.icon--ei-chevron-up', function () {
             if (checkAuth()) {
                 if ($(this).hasClass('vote-active')) {
                     // cancel vote && get vote count
                     if (date != null && time != null && type != null) {
                         var targetId = date + '/' + time;
-                        vote(targetId, type, 0);
+                        vote(targetId, type, 0, $(this));
                     }
 //                    $(this).removeClass('vote-active');
                 } else {
                     // vote && get vote count
                     if (date != null && time != null && type != null) {
                         var targetId = date + '/' + time;
-                        vote(targetId, type, 1);
+                        vote(targetId, type, 1, $(this));
                     }
                 }
 
@@ -143,14 +144,25 @@
         });
 
         // actionValue: 1-voteUp 0-cancel -1-voteDown
-        function vote(targetId, targetType, voteValue) {
+        function vote(targetId, targetType, voteValue, target) {
             console.log('vote:'+targetId+'-'+targetType+'-'+voteValue);
             $.ajax({
                 url: voteUrl,
                 type: 'POST',
                 data: {targetId: targetId, targetType: targetType, voteValue: voteValue},
                 success: function (data) {
-                    console.log(data);
+                    var msg = JSON.parse(data);
+                    console.log(msg);
+                    if(msg['success']){
+                        if(1===targetId || -1===targetId){
+                            target.addClass('vote-active');
+                        }else if(0===targetId){
+                            target.removeClass('vote-active');
+                        }
+                        $('#vote-count').text(msg['voteCount']);
+                    }else{
+                        console.log(msg);
+                    }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(textStatus+'-'+errorThrown);

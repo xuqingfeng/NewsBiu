@@ -13,13 +13,13 @@ class Vote extends \Phalcon\Mvc\Collection {
     public $createAt;
     public $updateAt;
 
-//    private $news;
-//    private $question;
+    private $news;
+    private $question;
 
     public function initialize() {
 
-//        $this->news = new News();
-//        $this->question = new Question();
+        $this->news = new News();
+        $this->question = new Question();
     }
 
     public function addVote($params) {
@@ -39,13 +39,13 @@ class Vote extends \Phalcon\Mvc\Collection {
         return false;
     }
 
-    public function getVote($params){
+    public function getVote($params) {
 
         $vote = self::findFirst([
             [
-                'targetId'=>$params['targetId'],
-                'targetType'=>$params['targetType'],
-                'voter'=>$params['voter']
+                'targetId'   => $params['targetId'],
+                'targetType' => $params['targetType'],
+                'voter'      => $params['voter']
             ]
         ]);
 
@@ -56,9 +56,7 @@ class Vote extends \Phalcon\Mvc\Collection {
 
     public function up($params) {
 
-//        $this->addVote($params);
-//        return;
-
+        // still can vote when is voter..
         $v = self::findFirst([
             [
                 'targetId'   => $params['targetId'],
@@ -81,13 +79,18 @@ class Vote extends \Phalcon\Mvc\Collection {
         }
 
         // update news/question
-//        if ('news' == $params['targetType']) {
-//            $news = new News();
-//            $news->voteUp($params);
-//        } else if ('question' == $params['targetType']) {
-//            $question = new Question();
-//            $question->voteUp($params);
-//        }
+        $ids = explode('/', $params['targetId']);
+        $p = [
+            'date'      => $ids[0],
+            'time'      => $ids[1],
+            'voter'     => $params['voter'],
+            'voteValue' => $params['voteValue']
+        ];
+        if ('news' == $params['targetType']) {
+            $this->news->voteUp($p);
+        } else if ('question' == $params['targetType']) {
+            $this->question->voteUp($p);
+        }
 
     }
 
@@ -100,21 +103,26 @@ class Vote extends \Phalcon\Mvc\Collection {
                 'voter'      => $params['voter']
             ]
         ]);
-        if(isset($vote)){
+        if ($vote) {
             $now = date('Y-m-d H:i:s');
             $vote->voteValue = -1;
             $vote->updateAt = $now;
             $vote->save();
-        }else{
+        } else {
             $this->addVote($params);
         }
 
-        if('news'==$params['targetType']){
-            $news = new News();
-            $news->voteDown($params);
-        }else if('question'==$params['targetType']){
-            $question = new Question();
-            $question->voteDown($params);
+        $ids = explode('/', $params['targetId']);
+        $p = [
+            'date'      => $ids[0],
+            'time'      => $ids[1],
+            'voter'     => $params['voter'],
+            'voteValue' => $params['voteValue']
+        ];
+        if ('news' == $params['targetType']) {
+            $this->news->voteDown($p);
+        } else if ('question' == $params['targetType']) {
+            $this->question->voteDown($p);
         }
 
     }
@@ -129,21 +137,25 @@ class Vote extends \Phalcon\Mvc\Collection {
             ]
         ]);
 
-        if (isset($vote)) {
+        if ($vote) {
             // vote before
             $originVoteValue = $vote->voteValue;
+            // not delete
+            $now = date('Y-m-d H:i:s');
+            $vote->voteValue = 0;
+            $vote->updateAt = $now;
+            $vote->save();
             $ids = explode('/', $params['targetId']);
             $p = [
                 'date'      => $ids[0],
                 'time'      => $ids[1],
+                'voter'     => $params['voter'],
                 'voteValue' => $originVoteValue
             ];
             if ('news' == $params['targetType']) {
-                $news = new News();
-                $news->cancelVote($p);
+                $this->news->cancelVote($p);
             } else if ('question' == $params['targetType']) {
-                $question = new Question();
-                $question->cancelVote($p);
+                $this->question->cancelVote($p);
             }
 
         } else {

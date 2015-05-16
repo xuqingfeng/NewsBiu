@@ -33,7 +33,6 @@ class NewsController extends BaseController {
                 // use two session together?
                 $auth = $this->session->get('auth');
                 $voter = $auth['name'];
-//                $voter = $user->getNameBySession();
                 $params = [
                     'targetId'   => $date . '/' . $time,
                     'targetType' => 'news',

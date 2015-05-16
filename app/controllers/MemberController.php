@@ -127,7 +127,6 @@ class MemberController extends BaseController {
     // vote up
     public function voteAction() {
 
-        $msg = [];
         if ($this->request->isPost()) {
             $targetId = $this->request->getPost('targetId');
             $targetType = $this->request->getPost('targetType');
@@ -135,7 +134,7 @@ class MemberController extends BaseController {
             $user = new User();
             $voter = $user->getNameBySession();
             if (isset($targetId) && isset($targetType) && isset($voteValue)) {
-                // target exist
+                // target exist?
                 $vote = new Vote();
                 $now = date('Y-m-d H:i:s');
                 $params = [
@@ -146,25 +145,11 @@ class MemberController extends BaseController {
                     'createAt'   => $now,
                     'updateAt'   => $now
                 ];
-//                $vote->addVote($params);
-//                exit;
-
-//                $msg = [
-//                    'success'=>true,
-//                    'data'=>$params
-//                ];
-//                echo json_encode($msg);
-//                exit;
                 if ($voteValue === 1) {
-//                    $msg = [
-//                        'data' => 'vote 1'
-//                    ];
-//                    echo json_encode($msg);
-//                    exit;
                     // vote up
                     $params['voteValue'] = 1;
                     // weird - safe
-//                    $vote->cancel($params);
+                    $vote->cancel($params);
                     $vote->up($params);
                 } else if ($voteValue === 0) {
                     $vote->cancel($params);
@@ -175,6 +160,23 @@ class MemberController extends BaseController {
                 }
 
                 // get vote count
+                $voteCount = 0;
+                $ids = explode('/', $params['targetId']);
+                if ('news' == $params['targetType']) {
+                    $news = new News();
+                    $n = $news->getNews($ids[0], $ids[1]);
+                    $voteCount = $n->voteUp - $n->voteDown;
+                } else if ('question' == $params['targetType']) {
+                    $question = new Question();
+                    $q = $question->getQuestion($ids[0], $ids[1]);
+                    $voteCount = $q->voteUp - $q->voteDown;
+                }
+
+                $msg = [
+                    'success'=>true,
+                    'voteCount'=>$voteCount,
+                    'message'=>'vote success'
+                ];
 
             } else {
                 $msg = [
@@ -190,8 +192,8 @@ class MemberController extends BaseController {
         }
 
         echo json_encode($msg);
-        exit;
         $this->view->disable();
+        exit;
     }
 
 }

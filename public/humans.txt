@@ -11,4 +11,4 @@ weibo: jsxqf
 
 
 /* MOTIVATION */
-Share something good with the World | 分享你的发现
+share something good with the World | 分享你的发现

@@ -181,7 +181,7 @@ class User extends \Phalcon\Mvc\Collection {
                 'name' => $params['name']
             ]
         ]);
-        if (isset($user)) {
+        if ($user) {
             $now = date('Y-m-d H:i:s');
             $user->reputation = $user->reputation + 1 * self::$voteUpReputation;
             $user->updateAt = $now;
@@ -198,7 +198,7 @@ class User extends \Phalcon\Mvc\Collection {
                 'name' => $params['name']
             ]
         ]);
-        if (isset($user)) {
+        if ($user) {
             $now = date('Y-m-d H:i:s');
             $user->reputation = $user->reputation - 1 * self::$voteDownReputation;
             $user->updateAt = $now;
@@ -215,7 +215,7 @@ class User extends \Phalcon\Mvc\Collection {
                 'name' => $params['name']
             ]
         ]);
-        if (isset($user)) {
+        if ($user) {
             $now = date('Y-m-d H:i:s');
             if (1 === $params['voteValue']) {
                 $user->reputation = $user->reputation - 1 * self::$voteUpReputation;
@@ -238,9 +238,8 @@ class User extends \Phalcon\Mvc\Collection {
 
         $vote = new Vote();
         $v = $vote->getVote($params);
-        if (isset($v)) {
+        if ($v) {
             return $v->voteValue;
-//            return 0;
         } else {
             return 0;
         }
