@@ -153,7 +153,7 @@ class MemberController extends BaseController {
                     $vote->up($params);
                 } else if ($voteValue === 0) {
                     $vote->cancel($params);
-                } else if ($voteValue === 1) {
+                } else if ($voteValue === -1) {
                     $params['voteValue'] = -1;
                     $vote->cancel($params);
                     $vote->down($params);

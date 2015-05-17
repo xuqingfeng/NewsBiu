@@ -105,9 +105,8 @@ class News extends \Phalcon\Mvc\Collection {
             if ($params['voter'] == $news->publisher) {
                 return;
             }
-            $name = $news->publisher;
             $p = [
-                'name'      => $name,
+                'name'      => $news->publisher,
                 'voteValue' => $params['voteValue']
             ];
             $now = date('Y-m-d H:i:s');
@@ -115,7 +114,10 @@ class News extends \Phalcon\Mvc\Collection {
             $news->updateAt = $now;
             $news->save();
 
-            $this->user->voteUp($p);
+            // don't use !!
+            // $this->user->voteUp($p);
+            $user = new User();
+            $user->votedUp($p);
         }
     }
 
@@ -132,9 +134,8 @@ class News extends \Phalcon\Mvc\Collection {
             if ($params['voter'] == $news->publisher) {
                 return;
             }
-            $name = $news->publisher;
             $p = [
-                'name'      => $name,
+                'name'      => $news->publisher,
                 'voteValue' => $params['voteValue']
             ];
             $now = date('Y-m-d H:i:s');
@@ -142,7 +143,9 @@ class News extends \Phalcon\Mvc\Collection {
             $news->updateAt = $now;
             $news->save();
 
-            $this->user->voteDown($p);
+//            $this->user->voteDown($p);
+            $user = new User();
+            $user->votedDown($p);
         }
 
     }
@@ -177,7 +180,8 @@ class News extends \Phalcon\Mvc\Collection {
                 $news->save();
             }
 
-            $this->user->cancelVote($p);
+            $user = new User();
+            $user->cancelVote($p);
         } else {
             // news does not exist
         }
