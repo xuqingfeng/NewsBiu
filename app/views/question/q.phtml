@@ -5,11 +5,17 @@
  */
 ?>
 
+<?php
+//    var_dump($question->voteUp);
+//    var_dump($question->voteDown);
+//    var_dump($question->updateAt);
+?>
+
 <div class="container">
     <div class="row">
         <div class="center-text two columns vote">
-            <div data-icon="ei-chevron-up" data-size="m"></div>
-            <div data-icon="ei-chevron-down" data-size="m"></div>
+            <div data-icon="ei-chevron-up" data-size="m" class="<?php if(1===$voteValue){echo 'vote-active';}?>"></div>
+            <div data-icon="ei-chevron-down" data-size="m" class="<?php if(-1===$voteValue){echo 'vote-active';}?>"></div>
             <div id="vote-count"><?php echo ($question->voteUp - $question->voteDown); ?></div>
         </div>
         <div class="ten columns">
@@ -26,8 +32,37 @@
     </div>
     <!-- get replies   -->
     <hr/>
-    <div></div>
+    <div class="row">
+        <?php
+        //        var_dump($replies);
+        if (isset($replies)):
+            $user = new User();
+            foreach ($replies as $reply):
+                ?>
+                <?php
+                $publisher = $reply->publisher;
+                $u = $user->getUserByName($publisher);
+                ?>
+                <div class="row">
+                    <div class="one column">
+                        <img src="<?php echo $u->avatarUrl;?>" alt="" class="profile-img"/>
+                    </div>
+                    <div class="ten columns">
+                        <?php echo $reply->parsedBody;?>
+                        <br/>
+                        <?php echo $reply->publisher . ' • ' . $reply->createAt; ?>
+                    </div>
+                    <div class="one column">
+                        <span>#1</span>
+                    </div>
+                </div>
+            <?php
+            endforeach;
+        endif;
+        ?>
+    </div>
 
+    <br/>
     <?php
     $auth = $this->session->get('auth');
     if ($auth):
@@ -37,10 +72,12 @@
         ?>
         <div class="row">
             <div class="two columns" align="center">
-                <img src="<?php echo $u->avatarUrl;?>" class="profile-img"/>
+<!--                <img src="--><?php //echo $u->avatarUrl;?><!--" class="profile-img"/>-->
             </div>
-            <div class="ten columns">
+            <div class="ten columns u-pull-right">
                 <form action="" method="post">
+                    <input type="hidden" name="<?php echo $this->security->getTokenKey();?>" value="<?php echo $this->security->getToken();?>"/>
+                    <input type="hidden" name="targetType" value="question"/>
                     <textarea name="reply" cols="30" rows="10" class="u-full-width"></textarea>
                     <input type="submit" class="button-primary u-pull-right" value="Reply"/>
                 </form>

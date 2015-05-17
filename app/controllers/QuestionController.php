@@ -6,7 +6,82 @@
  */
 class QuestionController extends BaseController {
 
+    public function qAction() {
+
+        $date = $this->dispatcher->getParam('date');
+        $time = $this->dispatcher->getParam('time');
+
+        if ($this->request->isGet()) {
+            $question = new Question();
+            $q = $question->getQuestion($date, $time);
+            $reply = new Reply();
+            $replies = $reply->getReplies("$date/$time", 'question');
+            $voteValue = 0;
+            if ($this->session->has('auth')) {
+                $user = new User();
+                $auth = $this->session->get('auth');
+                $voter = $auth['name'];
+                $params = [
+                    'targetId'   => "$date/$time",
+                    'targetType' => 'question',
+                    'voter'      => $voter
+                ];
+                $voteValue = $user->getVoteValue($params);
+            }
+            if ($q) {
+                $this->view->setVars([
+                    'question'  => $q,
+                    'replies'   => $replies,
+                    'date'      => $date,
+                    'time'      => $time,
+                    'type'      => 'question',
+                    'voteValue' => $voteValue
+                ]);
+            } else {
+                return $this->dispatcher->forward([
+                    'controller' => 'error',
+                    'action'     => 'index'
+                ]);
+            }
+        }else if($this->request->isPost()){
+            if ($this->security->checkToken()) {
+                $replyContent = $this->request->getPost('reply');
+                $targetType = $this->request->getPost('targetType');
+                $now = date('Y-m-d H:i:s');
+                $user = new User();
+                $publisher = $user->getNameBySession();
+                $params = [
+                    'targetId'   => "$date/$time",
+                    'targetType' => $targetType,
+                    'publisher'  => $publisher,
+                    'body'       => $replyContent,
+                    'createAt'   => $now,
+                    'updateAt'   => $now
+                ];
+                $reply = new Reply();
+                if ($reply->addReply($params)) {
+                    $this->response->redirect($this->config->environment->homepage . "/q/$date/$time", true);
+                } else {
+                    return $this->dispatcher->forward([
+                        'controller' => 'error',
+                        'action'     => 'index'
+                    ]);
+                }
+            } else {
+//                echo 'csrf fail';
+//                $this->view->disable();
+                return $this->dispatcher->forward([
+                    'controller' => 'error',
+                    'action'     => 'index'
+                ]);
+            }
+        }
+
+
+    }
+
     public function newAction() {
+
         if ($this->request->isGet()) {
 
         } else if ($this->request->isPost()) {
@@ -29,38 +104,21 @@ class QuestionController extends BaseController {
                         'createAt'  => $now,
                         'updateAt'  => $now
                     ];
-                    if($question->addQuestion($params)){
-                        $this->response->redirect($this->config->environment->homepage.'/q/'.$params['date'].'/'.$params['time'], true);
-                    }else{
+                    if ($question->addQuestion($params)) {
+                        $this->response->redirect($this->config->environment->homepage . '/q/' . $params['date'] . '/' . $params['time'], true);
+                    } else {
                         return $this->dispatcher->forward([
                             'controller' => 'error',
                             'action'     => 'index'
                         ]);
                     }
-                }else{
+                } else {
                     echo 'no title';
                 }
-            }else{
+            } else {
                 echo 'csrf fail';
             }
             $this->view->disable();
-        }
-    }
-
-    public function qAction() {
-
-        $date = $this->dispatcher->getParam('date');
-        $time = $this->dispatcher->getParam('time');
-
-        $question = new Question();
-        $q = $question->getQuestion($date, $time);
-        if($q){
-            $this->view->setVar('question', $q);
-        }else{
-            return $this->dispatcher->forward([
-                'controller' => 'error',
-                'action'     => 'index'
-            ]);
         }
     }
 

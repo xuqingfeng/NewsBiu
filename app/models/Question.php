@@ -71,5 +71,96 @@ class Question extends \Phalcon\Mvc\Collection {
         return $questions;
     }
 
+    public function voteUp($params){
+
+        $question = self::findFirst([
+            [
+                'date'=>$params['date'],
+                'time'=>$params['time']
+            ]
+        ]);
+        if($question){
+            if($params['voter']==$question->publisher){
+                return;
+            }
+            $p = [
+                'name'=>$question->publisher,
+                'voteValue'=>$params['voteValue']
+            ];
+            $now = date('Y-m-d H:i:s');
+            $question->voteUp++;
+            $question->updateAt = $now;
+            $question->save();
+
+            $user = new User();
+            $user->votedUp($p);
+
+        }
+    }
+
+    public function voteDown($params){
+
+        $question = self::findFirst([
+            [
+                'date'=>$params['date'],
+                'time'=>$params['time']
+            ]
+        ]);
+        if($question){
+            if($params['voter']==$question->publisher){
+                return;
+            }
+            $p = [
+                'name'=>$question->publisher,
+                'voteValue'=>$params['voteValue']
+            ];
+            $now = date('Y-m-d H:i:s');
+            $question->voteDown++;
+            $question->updateAt = $now;
+            $question->save();
+
+            $user = new User();
+            $user->votedDown($p);
+        }
+
+    }
+
+    public function cancelVote($params){
+
+        $question = self::findFirst([
+            [
+                'date'=>$params['date'],
+                'time'=>$params['time']
+            ]
+        ]);
+        if($question){
+            if($params['voter']==$question->publisher){
+                return;
+            }
+            $p = [
+                'name'=>$question->publisher,
+                'voteValue'=>$params['voteValue']
+            ];
+            $now = date('Y-m-d H:i:s');
+            if (1 === $params['voteValue']) {
+                $question->voteUp = $question->voteUp - 1;
+                $question->updateAt = $now;
+                $question->save();
+            } else if (0 === $params['voteValue']) {
+                // do nothing
+            } else if (-1 === $params['voteValue']) {
+                $question->voteDown = $question->voteDown - 1;
+                $question->updateAt = $now;
+                $question->save();
+            }
+
+            $user = new User();
+            $user->cancelVote($p);
+        }else{
+
+        }
+    }
+
+
 
 }

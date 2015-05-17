@@ -36,7 +36,6 @@ class NewsController extends BaseController {
                 $params = [
                     'targetId'   => $date . '/' . $time,
                     'targetType' => 'news',
-                    // 不能使用表达式 ？
                     'voter'      => $voter
                 ];
                 $voteValue = $user->getVoteValue($params);

@@ -110,7 +110,8 @@ class News extends \Phalcon\Mvc\Collection {
                 'voteValue' => $params['voteValue']
             ];
             $now = date('Y-m-d H:i:s');
-            $news->voteUp = $news->voteUp + 1;
+//            $news->voteUp = $news->voteUp + 1;
+            $news->voteUp++;
             $news->updateAt = $now;
             $news->save();
 
@@ -139,7 +140,8 @@ class News extends \Phalcon\Mvc\Collection {
                 'voteValue' => $params['voteValue']
             ];
             $now = date('Y-m-d H:i:s');
-            $news->voteDown = $news->voteDown + 1;
+//            $news->voteDown = $news->voteDown + 1;
+            $news->voteDown++;
             $news->updateAt = $now;
             $news->save();
 
