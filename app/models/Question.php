@@ -14,6 +14,7 @@ class Question extends \Phalcon\Mvc\Collection {
     public $publisher;
     public $voteUp;
     public $voteDown;
+    public $comments;
     public $hotScore;
     public $createAt;
     public $updateAt;
@@ -38,6 +39,7 @@ class Question extends \Phalcon\Mvc\Collection {
         $question->publisher = $params['publisher'];
         $question->voteUp = 0;
         $question->voteDown = 0;
+        $question->comments = 0;
         $question->hotScore = 0;
         $question->createAt = $params['createAt'];
         $question->updateAt = $params['updateAt'];
@@ -47,6 +49,16 @@ class Question extends \Phalcon\Mvc\Collection {
         }
 
         return false;
+    }
+
+    public function addComments($date, $time) {
+
+        $question = self::findFirst([
+            'date' => $date,
+            'time' => $time
+        ]);
+        $question->comments++;
+        $question->save();
     }
 
     public function getQuestion($date, $time) {
@@ -71,21 +83,21 @@ class Question extends \Phalcon\Mvc\Collection {
         return $questions;
     }
 
-    public function voteUp($params){
+    public function voteUp($params) {
 
         $question = self::findFirst([
             [
-                'date'=>$params['date'],
-                'time'=>$params['time']
+                'date' => $params['date'],
+                'time' => $params['time']
             ]
         ]);
-        if($question){
-            if($params['voter']==$question->publisher){
+        if ($question) {
+            if ($params['voter'] == $question->publisher) {
                 return;
             }
             $p = [
-                'name'=>$question->publisher,
-                'voteValue'=>$params['voteValue']
+                'name'      => $question->publisher,
+                'voteValue' => $params['voteValue']
             ];
             $now = date('Y-m-d H:i:s');
             $question->voteUp++;
@@ -98,21 +110,21 @@ class Question extends \Phalcon\Mvc\Collection {
         }
     }
 
-    public function voteDown($params){
+    public function voteDown($params) {
 
         $question = self::findFirst([
             [
-                'date'=>$params['date'],
-                'time'=>$params['time']
+                'date' => $params['date'],
+                'time' => $params['time']
             ]
         ]);
-        if($question){
-            if($params['voter']==$question->publisher){
+        if ($question) {
+            if ($params['voter'] == $question->publisher) {
                 return;
             }
             $p = [
-                'name'=>$question->publisher,
-                'voteValue'=>$params['voteValue']
+                'name'      => $question->publisher,
+                'voteValue' => $params['voteValue']
             ];
             $now = date('Y-m-d H:i:s');
             $question->voteDown++;
@@ -125,21 +137,21 @@ class Question extends \Phalcon\Mvc\Collection {
 
     }
 
-    public function cancelVote($params){
+    public function cancelVote($params) {
 
         $question = self::findFirst([
             [
-                'date'=>$params['date'],
-                'time'=>$params['time']
+                'date' => $params['date'],
+                'time' => $params['time']
             ]
         ]);
-        if($question){
-            if($params['voter']==$question->publisher){
+        if ($question) {
+            if ($params['voter'] == $question->publisher) {
                 return;
             }
             $p = [
-                'name'=>$question->publisher,
-                'voteValue'=>$params['voteValue']
+                'name'      => $question->publisher,
+                'voteValue' => $params['voteValue']
             ];
             $now = date('Y-m-d H:i:s');
             if (1 === $params['voteValue']) {
@@ -156,11 +168,10 @@ class Question extends \Phalcon\Mvc\Collection {
 
             $user = new User();
             $user->cancelVote($p);
-        }else{
+        } else {
 
         }
     }
-
 
 
 }

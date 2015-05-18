@@ -16,7 +16,7 @@ class NewsTest extends \UnitTestCase {
 
     public function testGetDomain(){
 
-        $trello = $this->news->getDomain('https://trello.com/c/kkNw0DQl/236--');
+        $trello = $this->news->getDomain('https://trello.com/b/3dYIQhqS/newsbiu');
         $this->assertEquals('trello.com', $trello);
     }
 

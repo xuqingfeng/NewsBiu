@@ -11,8 +11,8 @@ class QuestionController extends BaseController {
         $date = $this->dispatcher->getParam('date');
         $time = $this->dispatcher->getParam('time');
 
+        $question = new Question();
         if ($this->request->isGet()) {
-            $question = new Question();
             $q = $question->getQuestion($date, $time);
             $reply = new Reply();
             $replies = $reply->getReplies("$date/$time", 'question');
@@ -60,6 +60,7 @@ class QuestionController extends BaseController {
                 ];
                 $reply = new Reply();
                 if ($reply->addReply($params)) {
+                    $question->addComments($date, $time);
                     $this->response->redirect($this->config->environment->homepage . "/q/$date/$time", true);
                 } else {
                     return $this->dispatcher->forward([

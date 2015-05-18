@@ -16,6 +16,7 @@ class News extends \Phalcon\Mvc\Collection {
     public $publisher;
     public $voteUp;
     public $voteDown;
+    public $comments;
     public $hotScore;
     public $createAt;
     public $updateAt;
@@ -60,6 +61,7 @@ class News extends \Phalcon\Mvc\Collection {
         $news->publisher = $params['publisher'];
         $news->voteUp = 0;
         $news->voteDown = 0;
+        $news->comments = 0;
         $news->hotScore = 0;
         $news->createAt = $params['createAt'];
         $news->updateAt = $params['updateAt'];
@@ -68,6 +70,18 @@ class News extends \Phalcon\Mvc\Collection {
         }
 
         return false;
+    }
+
+    public function addComment($date, $time){
+
+        $news = self::findFirst([
+            [
+                'date'=>$date,
+                'time'=>$time
+            ]
+        ]);
+        $news->comments++;
+        $news->save();
     }
 
     public function getNews($date, $time) {

@@ -26,7 +26,7 @@
                 <div class="split"></div>
                 <?php echo $question->parsedBody; ?>
                 <br/>
-                <?php echo $question->publisher. ' • ' . $question->createAt; ?>
+                <div class="detail-description"><a href="/m/<?php echo $q->publisher; ?>"><?php echo $q->publisher;?></a> • <?php echo $q->createAt;?> • <?php echo $q->comments;?> comments</div>
             </div>
         </div>
     </div>

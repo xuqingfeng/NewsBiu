@@ -88,12 +88,13 @@ ul {
 /*}*/
 
 .main-title {
-    font-size: 20px;
-    /*font-weight: 400;*/
+    font-size: 2rem;
+    font-weight: 400;
 }
 
 .detail-title {
-    font-size: 30px;
+    font-size: 2.5rem;
+    font-weight: 400;
 }
 
 .profile-img {
@@ -101,6 +102,12 @@ ul {
     height: 4rem;
     border-radius: .4rem;
 }
+
+/*.small-profile-img {*/
+    /*width: 2rem;*/
+    /*height: 2rem;*/
+    /*border-radius: .2rem;*/
+/*}*/
 
 .center-text {
     text-align: center;
@@ -170,4 +177,18 @@ ul {
 .vote-active {
     /* not color */
     fill: #CFC7A1;
+}
+
+.nb-grey {
+    color: #A4B3B9;
+}
+
+.main-description {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+.detail-description {
+    font-size: 1.5rem;
+    font-weight: 400;
 }

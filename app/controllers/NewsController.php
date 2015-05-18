@@ -20,8 +20,8 @@ class NewsController extends BaseController {
 //        print_r($user->getNameBySession());
 //        exit;
 
+        $news = new News();
         if ($this->request->isGet()) {
-            $news = new News();
             $n = $news->getNews($date, $time);
             $reply = new Reply();
             $replies = $reply->getReplies("$date/$time", 'news');
@@ -73,6 +73,7 @@ class NewsController extends BaseController {
                 ];
                 $reply = new Reply();
                 if ($reply->addReply($params)) {
+                    $news->addComment($date, $time);
                     $this->response->redirect($this->config->environment->homepage . "/n/$date/$time", true);
                 } else {
                     return $this->dispatcher->forward([

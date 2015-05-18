@@ -89,7 +89,7 @@
                         <!--                        <div data-icon="ei-link" data-size="s"></div>-->
                         <!--                    </div>-->
                     </div>
-                    <div><?php echo $n->publisher . ' • ' . $n->createAt;?></div>
+                    <div class="main-description"><a href="/m/<?php echo $n->publisher;?>"><?php echo $n->publisher;?></a> • <?php echo $n->createAt;?> • <?php echo $n->comments;?> comments</div>
                 </div>
             </div>
         <?php
@@ -112,7 +112,7 @@
                     <div>
                         <a href="/q/<?php echo $q->date . '/' . $q->time;?>" class="main-title"><?php echo $q->title;?></a>
                     </div>
-                    <div><?php echo $q->publisher . ' • ' . $q->createAt;?></div>
+                    <div class="main-description"><a href="/m/<?php echo $q->publisher;?>"><?php echo $q->publisher;?></a> • <?php echo $q->createAt;?> • <?php echo $q->comments;?> comments</div>
                 </div>
             </div>
         <?php

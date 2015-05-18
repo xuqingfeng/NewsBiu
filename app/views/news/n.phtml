@@ -28,7 +28,7 @@
                 <div class="split"></div>
                 <?php echo $news->parsedBody; ?>
                 <br/>
-                <?php echo $news->publisher . ' • ' . $news->createAt; ?>
+                <div class="detail-description"><a href="/m/<?php echo $news->publisher; ?>"><?php echo $news->publisher;?></a> • <?php echo $news->createAt;?> • <?php echo $news->comments;?> comments</div>
             </div>
         </div>
     </div>
