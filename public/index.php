@@ -96,6 +96,10 @@ try {
 
         return $view;
     }, true);
+    $di->set('assets', function () {
+
+        return new \Phalcon\Assets\Manager();
+    }, true);
     $di->set('mongo', function () use ($config) {
 
         // '://' fuck me

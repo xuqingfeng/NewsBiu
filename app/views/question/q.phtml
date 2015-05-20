@@ -8,7 +8,6 @@
 <?php
 //    var_dump($question->voteUp);
 //    var_dump($question->voteDown);
-//    var_dump($question->updateAt);
 ?>
 
 <div class="container">
@@ -26,7 +25,7 @@
                 <div class="split"></div>
                 <?php echo $question->parsedBody; ?>
                 <br/>
-                <div class="detail-description"><a href="/m/<?php echo $q->publisher; ?>"><?php echo $q->publisher;?></a> • <?php echo $q->createAt;?> • <?php echo $q->comments;?> comments</div>
+                <div class="detail-description"><a href="/m/<?php echo $question->publisher; ?>"><?php echo $question->publisher;?></a> • <?php echo $question->createAt;?> • <?php echo $question->comments;?> comments</div>
             </div>
         </div>
     </div>

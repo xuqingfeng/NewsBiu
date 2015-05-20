@@ -11,6 +11,8 @@ class MemberController extends BaseController {
 
     public function initialize() {
 
+        // bug
+        parent::initialize();
         if ('dev' == STATE) {
             self::$githubRedirectUrl = 'http://newsbiu.dev/member/callback';
         } else if ('prd' == STATE) {
