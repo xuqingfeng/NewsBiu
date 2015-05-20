@@ -41,6 +41,12 @@
   float: left;
   box-sizing: border-box; }
 
+@media (min-width: 300px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
