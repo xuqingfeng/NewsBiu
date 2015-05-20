@@ -14,7 +14,6 @@ class IndexController extends BaseController {
             if ('home' != $tab && 'qna' != $tab) {
                 $tab = 'home';
             }
-//            $tab = 'isset';
         } else {
             if ($this->cookies->has('NEWSBIUTAB')) {
                 $NEWSBIUTAB = $this->cookies->get('NEWSBIUTAB');
@@ -25,8 +24,6 @@ class IndexController extends BaseController {
                 } else {
                     $tab = $tabInCookie;
                 }
-//                $tab = $tabInCookie;
-//                $tab = 'has cookie:'.$tabInCookie;
             }else{
                 $tab = 'home';
             }

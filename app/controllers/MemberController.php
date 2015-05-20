@@ -7,23 +7,35 @@
 class MemberController extends BaseController {
 
     private static $githubAuthorizeUrl = 'https://github.com/login/oauth/authorize';
-    private static $githubRedirectUrl = 'http://newsbiu.dev/member/callback';
+    private static $githubRedirectUrl;
+
+    public function initialize() {
+
+        if ('dev' == STATE) {
+            self::$githubRedirectUrl = 'http://newsbiu.dev/member/callback';
+        } else if ('prd' == STATE) {
+            self::$githubRedirectUrl = 'https://newsbiu.org/member/callback';
+        }
+    }
 
     // member login
     public function loginAction() {
 
         // fake xuqingfeng
-        $this->session->set('auth', [
-            'name' => 'xuqingfeng',
-            'role' => 'root'
-        ]);
+//        $this->session->set('auth', [
+//            'name' => 'xuqingfeng',
+//            'role' => 'root'
+//        ]);
 //        $this->session->set('auth', [
 //            'name' => 'jsxqf',
 //            'role' => 'member'
 //        ]);
-        $this->response->redirect($this->config->environment->homepage, true);
+//        $this->response->redirect($this->config->environment->homepage, true);
 
-//        $this->response->redirect(self::$githubAuthorizeUrl . "?client_id=" . $this->config->application->githubClientID . "&redirect_uri=" . self::$githubRedirectUrl . "&state=" . $this->config->application->githubScope, true);
+//        var_dump($this->request->getHTTPReferer());
+        $this->session->set('referer', $this->request->getHTTPReferer());
+//        $this->view->disable();
+        $this->response->redirect(self::$githubAuthorizeUrl . "?client_id=" . $this->config->application->githubClientID . "&redirect_uri=" . self::$githubRedirectUrl . "&state=" . $this->config->application->githubState, true);
     }
 
     public function logoutAction() {
@@ -73,14 +85,19 @@ class MemberController extends BaseController {
                     // redirect to refer
                     if ($this->session->has('referer')) {
                         $referer = $this->session->get('referer');
+                        if (strpos($referer, $this->config->environment->homepage) !== false) {
+                            $this->response->redirect($referer, true);
+                        } else {
+                            $this->response->redirect($this->config->environment->homepage, true);
+                        }
                         // phpsession cookie exist in browser
                         $this->session->remove('referer');
-                        $this->response->redirect($referer, true);
                     } else {
-                        return $this->dispatcher->forward([
-                            'controller' => 'index',
-                            'action'     => 'index'
-                        ]);
+//                        return $this->dispatcher->forward([
+//                            'controller' => 'index',
+//                            'action'     => 'index'
+//                        ]);
+                        $this->response->redirect($this->config->environment->homepage, true);
                     }
                 } else {
                     echo 'no user info';
@@ -101,7 +118,6 @@ class MemberController extends BaseController {
     public function mAction() {
 
         $name = $this->dispatcher->getParam('name');
-//        $this->view->setVar('name', $name);
         $user = new User();
         $u = $user->getUserByName($name);
         if ($u) {
@@ -173,9 +189,9 @@ class MemberController extends BaseController {
                 }
 
                 $msg = [
-                    'success'=>true,
-                    'voteCount'=>$voteCount,
-                    'message'=>'vote success'
+                    'success'   => true,
+                    'voteCount' => $voteCount,
+                    'message'   => 'vote success'
                 ];
 
             } else {

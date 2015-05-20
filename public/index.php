@@ -16,14 +16,17 @@ try {
     ini_set('xdebug.var_display_max_children', -1);
     ini_set('xdebug.var_display_max_data', -1);
 
-    error_reporting(E_ALL);
-
-    date_default_timezone_set('Asia/Shanghai');
-
 //    print_r(get_loaded_extensions());
 //    exit;
 
-    $config = new \Phalcon\Config\Adapter\Ini(ROOT_PATH . 'app/config/config.dev.ini');
+    define('STATE', 'dev');
+    if (STATE == 'dev') {
+        $config = new \Phalcon\Config\Adapter\Ini(ROOT_PATH . 'app/config/config.dev.ini');
+    } else if (STATE == 'prd') {
+        $config = new \Phalcon\Config\Adapter\Ini(ROOT_PATH . 'app/config/config.prd.ini');
+    }
+
+    date_default_timezone_set($config->environment->timezone);
 
     $loader = new \Phalcon\Loader();
     $loader->registerDirs([
@@ -98,9 +101,7 @@ try {
         // '://' fuck me
         $mongo = new MongoClient('mongodb://' . $config->database->username . ':' . $config->database->password . '@' . $config->database->host . ':' . $config->database->port);
 
-        // fucked
         return $mongo->selectDB($config->database->name);
-//        return $mongo;
     }, true);
     // mongo related
     $di->set('collectionManager', function () {
@@ -117,8 +118,9 @@ try {
     $di->set('crypt', function () use ($config) {
 
         $crypt = new \Phalcon\Crypt();
-//        $crypt->setKey($config->application->encryptKey);
-        $crypt->setKey('NewsBiuIsAwesome');
+        $crypt->setKey($config->application->encryptKey);
+
+//        $crypt->setKey('NewsBiuIsAwesome');
 
         return $crypt;
     });
@@ -144,6 +146,4 @@ try {
 
 } catch (\Phalcon\Exception $e) {
     echo $e->getMessage();
-}catch(\Exception $x){
-    echo $x->getMessage();
 }

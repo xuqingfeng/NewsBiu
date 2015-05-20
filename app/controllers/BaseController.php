@@ -8,11 +8,10 @@ class BaseController extends \Phalcon\Mvc\Controller {
 
     public function initialize() {
 
-        $state = $this->config->environment->state;
-        if ('dev' == $state) {
+        if ('dev' == STATE) {
             $dir = 'dev';
             $min = '';
-        } else {
+        } else if ('prd' == STATE) {
             $dir = 'prd';
             $min = '.min';
         }
