@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="center-text two columns vote">
+        <div class="center-text two columns vote desktop-only">
             <div data-icon="ei-chevron-up" data-size="m" class="<?php if(1===$voteValue){echo 'vote-active';}?>"></div>
             <div data-icon="ei-chevron-down" data-size="m" class="<?php if(-1===$voteValue){echo 'vote-active';}?>"></div>
             <div id="vote-count"><?php echo ($question->voteUp - $question->voteDown); ?></div>
@@ -43,13 +43,13 @@
                 $u = $user->getUserByName($publisher);
                 ?>
                 <div class="row">
-                    <div class="one column">
-                        <img src="<?php echo $u->avatarUrl;?>" alt="" class="profile-img"/>
-                    </div>
-                    <div class="ten columns">
+<!--                    <div class="one column">-->
+<!--                        <img src="--><?php //echo $u->avatarUrl;?><!--" alt="" class="profile-img"/>-->
+<!--                    </div>-->
+                    <div class="eleven columns">
                         <?php echo $reply->parsedBody;?>
                         <br/>
-                        <?php echo $reply->publisher . ' • ' . $reply->createAt; ?>
+                        <a href="/m/<?php echo $reply->publisher; ?>"><?php echo $reply->publisher; ?></a> • <?php echo $reply->createAt; ?>
                     </div>
                     <div class="one column">
                         <span>#1</span>

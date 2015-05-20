@@ -3,20 +3,19 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename');
 
-gulp.task('default', ['minify-css', 'minify-js', 'copy-img']);
+gulp.task('deploy', ['minify-css', 'minify-js', 'copy-img']);
 
-
-//gulp.task('default', ['watch']);
-// bug: no change, so do nothing
-//gulp.task('watch', function () {
-//    gulp.watch([
-//        './dev/**'
-//    ], [
-//        'minify-css',
-//        'minify-js',
-//        'copy-img'
-//    ]);
-//});
+//bug: no change, so do nothing
+gulp.task('default', ['watch']);
+gulp.task('watch', function () {
+    gulp.watch([
+        './dev/**'
+    ], [
+        'minify-css',
+        'minify-js',
+        'copy-img'
+    ]);
+});
 
 gulp.task('minify-css', function () {
     gulp.src('./dev/css/*.css')

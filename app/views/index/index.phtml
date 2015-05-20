@@ -75,9 +75,10 @@
         foreach ($latestNews as $n):
             ?>
             <div class="row split">
-                <div class="center-text one column">
+                <div class="center-text one columns desktop-only">
                     <div data-icon="ei-chevron-up" data-size="s"></div>
-                    <?php echo $n->voteUp - $n->voteDown;?>
+<!--                    <div data-icon="ei-chevron-up" data-size="s"></div>-->
+                    <div><?php echo ($n->voteUp - $n->voteDown);?></div>
                 </div>
                 <div class="eleven columns">
                     <div><a href="/n/<?php echo $n->date . '/' . $n->time;?>" class="main-title"><?php echo $n->title;?></a>
@@ -89,7 +90,7 @@
                         <!--                        <div data-icon="ei-link" data-size="s"></div>-->
                         <!--                    </div>-->
                     </div>
-                    <div class="main-description"><a href="/m/<?php echo $n->publisher;?>"><?php echo $n->publisher;?></a> • <?php echo $n->createAt;?> • <?php echo $n->comments;?> comments</div>
+                    <div class="main-description"><a href="/m/<?php echo $n->publisher;?>"><?php echo $n->publisher;?></a> • <?php echo date('H:i:s', $n->createAt);?> • <?php echo $n->comments;?> comments</div>
                 </div>
             </div>
         <?php
@@ -104,7 +105,7 @@
         foreach ($latestQuestions as $q):
             ?>
             <div class="row split">
-                <div class="center-text one column">
+                <div class="center-text one column desktop-only">
                     <div data-icon="ei-chevron-up" data-size="s"></div>
                     <?php echo $q->voteUp - $q->voteDown;?>
                 </div>
@@ -112,7 +113,7 @@
                     <div>
                         <a href="/q/<?php echo $q->date . '/' . $q->time;?>" class="main-title"><?php echo $q->title;?></a>
                     </div>
-                    <div class="main-description"><a href="/m/<?php echo $q->publisher;?>"><?php echo $q->publisher;?></a> • <?php echo $q->createAt;?> • <?php echo $q->comments;?> comments</div>
+                    <div class="main-description"><a href="/m/<?php echo $q->publisher;?>"><?php echo $q->publisher;?></a> • <?php echo date('H:i', $q->createAt);?> • <?php echo $q->comments;?> comments</div>
                 </div>
             </div>
         <?php

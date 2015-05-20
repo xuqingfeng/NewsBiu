@@ -111,7 +111,6 @@ ul {
     color: #D0EAFC
 }
 .color-two {
-    /*color: #444C5A*/
     color: #CFC7A1
 }
 .color-three {
@@ -123,29 +122,14 @@ ul {
 
 
 .color-one-divider {
-    /*display: inline-block;*/
-    /*margin: 0px;*/
     border: 1px solid #CFC7A1;
-    /*border-left: 0px;*/
-    /*border-right: 0px;*/
-    /*width: 25%;*/
 }
 
 .color-two-divider {
-    /*display: inline-block;*/
-    /*margin: 0px;*/
     border: 1px solid #D0EAFC;
-    /*border-left: 0px;*/
-    /*border-right: 0px;*/
-    /*width: 25%;*/
 }
 .color-three-divider {
-    /*display: inline-block;*/
-    /*margin: 0px;*/
     border: 1px solid #A4B3B9;
-    /*border-left: 0px;*/
-    /*border-right: 0px;*/
-    /*width: 25%;*/
 }
 .color-four-divider {
     border: 1px solid #EB4A30;
@@ -181,4 +165,13 @@ ul {
 .detail-description {
     font-size: 1.5rem;
     font-weight: 400;
+}
+
+.icon--m {
+    width: 3rem;
+    height: 3rem;
+}
+.icon--s {
+    width: 1.5rem;
+    height: 1.5rem;
 }

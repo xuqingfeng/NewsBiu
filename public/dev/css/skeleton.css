@@ -46,6 +46,10 @@
   .container {
     width: 85%;
     padding: 0; }
+
+  .desktop-only {
+    display: none !important;
+  }
 }
 
 /* For devices larger than 550px */
@@ -109,6 +113,10 @@
 
   .offset-by-one-half.column,
   .offset-by-one-half.columns     { margin-left: 52%; }
+
+  .desktop-only {
+    display: block !important;
+  }
 
 }
 
