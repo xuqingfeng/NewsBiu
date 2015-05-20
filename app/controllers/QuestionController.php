@@ -11,6 +11,7 @@ class QuestionController extends BaseController {
         $date = $this->dispatcher->getParam('date');
         $time = $this->dispatcher->getParam('time');
 
+        $isPublisher = false;
         $question = new Question();
         if ($this->request->isGet()) {
             $q = $question->getQuestion($date, $time);
@@ -27,15 +28,20 @@ class QuestionController extends BaseController {
                     'voter'      => $voter
                 ];
                 $voteValue = $user->getVoteValue($params);
+
+                if ($auth['name'] == $q->publisher) {
+                    $isPublisher = true;
+                }
             }
             if ($q) {
                 $this->view->setVars([
-                    'question'  => $q,
-                    'replies'   => $replies,
-                    'date'      => $date,
-                    'time'      => $time,
-                    'type'      => 'question',
-                    'voteValue' => $voteValue
+                    'question'    => $q,
+                    'replies'     => $replies,
+                    'date'        => $date,
+                    'time'        => $time,
+                    'type'        => 'question',
+                    'voteValue'   => $voteValue,
+                    'isPublisher' => $isPublisher
                 ]);
             } else {
                 return $this->dispatcher->forward([
@@ -43,7 +49,7 @@ class QuestionController extends BaseController {
                     'action'     => 'index'
                 ]);
             }
-        }else if($this->request->isPost()){
+        } else if ($this->request->isPost()) {
             if ($this->security->checkToken()) {
                 $replyContent = $this->request->getPost('reply');
                 $targetType = $this->request->getPost('targetType');

@@ -19,7 +19,7 @@ try {
 //    print_r(get_loaded_extensions());
 //    exit;
 
-    define('STATE', 'prd');
+    define('STATE', 'dev');
     if (STATE == 'dev') {
         $config = new \Phalcon\Config\Adapter\Ini(ROOT_PATH . 'app/config/config.dev.ini');
     } else if (STATE == 'prd') {

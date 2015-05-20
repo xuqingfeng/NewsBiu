@@ -27,6 +27,7 @@ class NewsController extends BaseController {
             $replies = $reply->getReplies("$date/$time", 'news');
             // login or not
             $voteValue = 0;
+            $isPublisher = false;
             if ($this->session->has('auth')) {
                 // check has voted
                 $user = new User();
@@ -39,6 +40,10 @@ class NewsController extends BaseController {
                     'voter'      => $voter
                 ];
                 $voteValue = $user->getVoteValue($params);
+
+                if ($auth['name'] == $n->publisher) {
+                    $isPublisher = true;
+                }
             }
 
             if ($n) {
@@ -48,7 +53,8 @@ class NewsController extends BaseController {
                     'date'      => $date,
                     'time'      => $time,
                     'type'      => 'news',
-                    'voteValue' => $voteValue
+                    'voteValue' => $voteValue,
+                    'isPublisher'  => $isPublisher
                 ]);
             } else {
                 return $this->dispatcher->forward([

@@ -90,8 +90,8 @@
 <script>
     (function () {
 
-        var auth =<?php if(isset($auth)){echo "true";}else{echo "false";}?>;
-//        var voteValue = "<?php //if(isset($voteValue)){echo $voteValue;}else{echo 'null';}?>//";
+        var auth = <?php if(isset($auth)){echo "true";}else{echo "false";}?>;
+        var isPublisher = <?php if(isset($isPublisher) && $isPublisher){echo "true";}else{echo "false";}?>;
         var voteUrl = "/member/vote";
         // homepage
         $('a.new-button').on('click', function (evt) {
@@ -116,7 +116,7 @@
 
         // detail page
         $('.vote').on('click', '.icon--ei-chevron-up', function () {
-            if (checkAuth()) {
+            if (checkAuth() && !isPublisher) {
                 if ($(this).hasClass('vote-active')) {
                     removeVoteActive();
                     // cancel vote && get vote count
@@ -134,7 +134,7 @@
             }
         });
         $('.vote').on('click', '.icon--ei-chevron-down', function () {
-            if (checkAuth()) {
+            if (checkAuth() && !isPublisher) {
                 if($(this).hasClass('vote-active')){
                     removeVoteActive();
                     if(checkVoteQualification()){
@@ -185,7 +185,7 @@
         function checkAuth() {
             if (!auth) {
                 swal({
-                    title: "Please login first!",
+                    title: "Haven't Sign In !",
                     text: "Github account only.",
                     type: "warning",
                     showCancelButton: true,
