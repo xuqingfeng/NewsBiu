@@ -66,12 +66,12 @@
     endif;
     ?>
 </div>
-
 <div class="container">
     <?php
+    $date = date('Ymd');
     if ('home' == $tab):
         $news = new News();
-        $latestNews = $news->getLatestNews();
+        $latestNews = $news->getLatestNews($date);
         foreach ($latestNews as $n):
             ?>
             <div class="row split">
@@ -89,7 +89,7 @@
                         <!--                        <div data-icon="ei-link" data-size="s"></div>-->
                         <!--                    </div>-->
                     </div>
-                    <div class="main-description"><a href="/m/<?php echo $n->publisher;?>"><?php echo $n->publisher;?></a> • <?php echo date('H:i:s', $n->createAt);?> • <?php echo $n->comments;?> comments</div>
+                    <div class="main-description"><a href="/m/<?php echo $n->publisher;?>"><?php echo $n->publisher;?></a> • <?php echo date('H:i', strtotime($n->createAt));?> • <?php echo $n->comments;?> comments</div>
                 </div>
             </div>
         <?php
@@ -100,7 +100,7 @@
     <?php
     if ('qna' == $tab):
         $question = new Question();
-        $latestQuestions = $question->getLatestQuestions();
+        $latestQuestions = $question->getLatestQuestions($date);
         foreach ($latestQuestions as $q):
             ?>
             <div class="row split">
@@ -112,7 +112,7 @@
                     <div>
                         <a href="/q/<?php echo $q->date . '/' . $q->time;?>" class="main-title"><?php echo $q->title;?></a>
                     </div>
-                    <div class="main-description"><a href="/m/<?php echo $q->publisher;?>"><?php echo $q->publisher;?></a> • <?php echo date('H:i', $q->createAt);?> • <?php echo $q->comments;?> comments</div>
+                    <div class="main-description"><a href="/m/<?php echo $q->publisher;?>"><?php echo $q->publisher;?></a> • <?php echo date('H:i', strtotime($q->createAt));?> • <?php echo $q->comments;?> comments</div>
                 </div>
             </div>
         <?php
@@ -124,5 +124,5 @@
 
 <div class="container">
     <br/>
-    <a href="" class="u-pull-right">more</a>
+    <a href="<?php if('home'==$tab){echo "/news/list";}else{echo "/question/list";}?>" class="u-pull-right">more</a>
 </div>

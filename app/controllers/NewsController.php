@@ -8,7 +8,30 @@ class NewsController extends BaseController {
 
     public function listAction() {
 
+        $page = (int)$this->request->getQuery('p');
+        $news = new News();
+//        if (isset($page) && $page >= 1) {
+//            $n = $news->getNewsByPage($page);
+//        } else {
+//            $page = 1;
+//            $n = $news->getNewsByPage($page);
+//        }
+        if(!isset($page) || $page < 1){
+            $page = 1;
+        }
+        $n = $news->getNewsByPage($page);
 
+        if ($n) {
+            $this->view->setVars([
+                'news' => $n,
+                'page' => $page
+            ]);
+        } else {
+            return $this->dispatcher->forward([
+                'controller' => 'error',
+                'action'     => 'index'
+            ]);
+        }
     }
 
     public function nAction() {
@@ -70,7 +93,7 @@ class NewsController extends BaseController {
                 // ? can't use session ??
 //                $user = new User();
 //                $publisher = $user->getNameBySession();
-                if($this->session->has('auth')){
+                if ($this->session->has('auth')) {
                     $auth = $this->session->get('auth');
                     $publisher = $auth['name'];
                     $params = [
@@ -98,7 +121,7 @@ class NewsController extends BaseController {
                             'action'     => 'index'
                         ]);
                     }
-                }else{
+                } else {
                     return $this->dispatcher->forward([
                         'controller' => 'error',
                         'action'     => 'index'

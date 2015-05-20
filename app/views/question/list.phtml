@@ -1,0 +1,39 @@
+<?php
+/**
+ * Author: xuqingfeng <js-xqf@hotmail.com>
+ * Date: 15/5/20
+ */
+?>
+
+<br/>
+<div class="container">
+    <?php
+    foreach ($questions as $q):
+        ?>
+        <div class="row split">
+            <div class="center-text one column desktop-only">
+                <div data-icon="ei-chevron-up" data-size="s"></div>
+                <div><?php echo $q->voteUp - $q->voteDown;?></div>
+            </div>
+            <div class="eleven columns">
+                <div>
+                    <a href="/q/<?php echo $q->date . '/' . $q->time;?>" class="main-title"><?php echo $q->title;?></a>
+                </div>
+                <div class="main-description"><a href="/m/<?php echo $q->publisher;?>"><?php echo $q->publisher;?></a>
+                    • <?php echo date('Y-m-d', strtotime($q->createAt));?> • <?php echo $q->comments;?> comments
+                </div>
+            </div>
+        </div>
+    <?php
+    endforeach;
+    ?>
+</div>
+
+<div class="container">
+    <br/>
+    <div class="row">
+        <a href="/question/list?p=<?php if($page<=1){ echo 1;}else{ echo $page-1;}?>" class="u-pull-left">prev</a>
+        <a href="/question/list?p=<?php echo $page+1;?>" class="u-pull-right">next</a>
+    </div>
+</div>
+

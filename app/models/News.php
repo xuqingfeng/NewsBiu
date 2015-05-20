@@ -96,12 +96,26 @@ class News extends \Phalcon\Mvc\Collection {
         return $news;
     }
 
-    public function getLatestNews() {
+    public function getLatestNews($date) {
 
         // condition "or"?
         $news = self::find([
-            [],
+            [
+                'date' => $date,
+            ],
+            'sort'  => ['hotScore' => -1],
             'limit' => $this->limit
+        ]);
+
+        return $news;
+    }
+
+    public function getNewsByPage($page) {
+
+        $news = self::find([
+            'sort'  => ['createAt' => -1],
+            'limit' => $this->limit,
+            'skip'  => $this->limit * ($page - 1)
         ]);
 
         return $news;

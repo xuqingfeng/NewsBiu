@@ -54,8 +54,10 @@ class Question extends \Phalcon\Mvc\Collection {
     public function addComments($date, $time) {
 
         $question = self::findFirst([
-            'date' => $date,
-            'time' => $time
+            [
+                'date' => $date,
+                'time' => $time
+            ]
         ]);
         $question->comments++;
         $question->save();
@@ -73,11 +75,25 @@ class Question extends \Phalcon\Mvc\Collection {
         return $question;
     }
 
-    public function getLatestQuestions() {
+    public function getLatestQuestions($date) {
 
         $questions = self::find([
-            [],
+            [
+                'date' => $date
+            ],
+            'sort'  => ['hotScore' => -1],
             'limit' => $this->limit
+        ]);
+
+        return $questions;
+    }
+
+    public function getQuestionsByPage($page) {
+
+        $questions = self::find([
+            'sort'  => ['createAt' => -1],
+            'limit' => $this->limit,
+            'skip'  => $this->limit * ($page - 1)
         ]);
 
         return $questions;
@@ -173,15 +189,15 @@ class Question extends \Phalcon\Mvc\Collection {
         }
     }
 
-    public function addScore($params){
+    public function addScore($params) {
 
         $question = self::findFirst([
             [
-                'date'=>$params['date'],
-                'time'=>$params['time']
+                'date' => $params['date'],
+                'time' => $params['time']
             ]
         ]);
-        if($question){
+        if ($question) {
             $question->hotScore += $params['scoreValue'];
             $question->save();
         }

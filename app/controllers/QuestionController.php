@@ -6,6 +6,28 @@
  */
 class QuestionController extends BaseController {
 
+    public function listAction() {
+
+        $page = (int)$this->request->getQuery('p');
+        $question = new Question();
+        if (!isset($page) || $page < 1) {
+            $page = 1;
+        }
+        $q = $question->getQuestionsByPage($page);
+
+        if ($q) {
+            $this->view->setvars([
+                'questions' => $q,
+                'page'      => $page
+            ]);
+        } else {
+            return $this->dispatcher->forward([
+                'controller' => 'error',
+                'action'     => 'index'
+            ]);
+        }
+    }
+
     public function qAction() {
 
         $date = $this->dispatcher->getParam('date');
@@ -56,7 +78,7 @@ class QuestionController extends BaseController {
                 $now = date('Y-m-d H:i:s');
 //                $user = new User();
 //                $publisher = $user->getNameBySession();
-                if($this->session->has('auth')){
+                if ($this->session->has('auth')) {
                     $auth = $this->session->get('auth');
                     $publisher = $auth['name'];
                     $params = [
@@ -84,7 +106,7 @@ class QuestionController extends BaseController {
                             'action'     => 'index'
                         ]);
                     }
-                }else{
+                } else {
                     return $this->dispatcher->forward([
                         'controller' => 'error',
                         'action'     => 'index'
