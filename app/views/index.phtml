@@ -15,9 +15,8 @@
     <title><?php echo $this->config->environment->title; ?></title>
     <!-- smart version -->
     <link rel="icon" href="/dev/img/N@2x.png?v=2" sizes="64x64"/>
-    <!-- change position TODO  -->
     <?php $this->assets->outputCss(); ?>
-    <?php $this->assets->outputJs(); ?>
+    <?php $this->assets->outputJs('js-evil-icons'); ?>
 </head>
 <body>
 
@@ -87,6 +86,7 @@
 
 </div>
 
+<?php $this->assets->outputJs(); ?>
 <script>
     (function () {
 

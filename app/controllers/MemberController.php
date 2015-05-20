@@ -34,7 +34,6 @@ class MemberController extends BaseController {
 
 //        var_dump($this->request->getHTTPReferer());
         $this->session->set('referer', $this->request->getHTTPReferer());
-//        $this->view->disable();
         $this->response->redirect(self::$githubAuthorizeUrl . "?client_id=" . $this->config->application->githubClientID . "&redirect_uri=" . self::$githubRedirectUrl . "&state=" . $this->config->application->githubState, true);
     }
 

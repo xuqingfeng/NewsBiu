@@ -23,8 +23,12 @@ class BaseController extends \Phalcon\Mvc\Controller {
             ->addCss("$dir/css/ie9$min.css")
             ->addCss("$dir/css/index$min.css");
 
+        // needed ?
         $this->assets
-            ->addJs("$dir/js/evil-icons$min.js")
+            ->collection('js-evil-icons')
+            ->addJs("$dir/js/evil-icons$min.js");
+
+        $this->assets
             ->addJs("$dir/js/jquery$min.js")
             ->addJs("$dir/js/sweet-alert$min.js");
     }

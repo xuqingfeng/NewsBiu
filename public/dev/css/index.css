@@ -82,11 +82,6 @@ ul {
     box-sizing: border-box;
 }
 
-/*.icon--m {*/
-    /*width: 40px;*/
-    /*height: 40px;*/
-/*}*/
-
 .main-title {
     font-size: 2rem;
     font-weight: 400;
@@ -102,12 +97,6 @@ ul {
     height: 4rem;
     border-radius: .4rem;
 }
-
-/*.small-profile-img {*/
-    /*width: 2rem;*/
-    /*height: 2rem;*/
-    /*border-radius: .2rem;*/
-/*}*/
 
 .center-text {
     text-align: center;
@@ -134,35 +123,36 @@ ul {
 
 
 .color-one-divider {
-    display: inline-block;
-    margin: 0px;
+    /*display: inline-block;*/
+    /*margin: 0px;*/
     border: 1px solid #CFC7A1;
-    border-left: 0px;
-    border-right: 0px;
-    width: 25%;
+    /*border-left: 0px;*/
+    /*border-right: 0px;*/
+    /*width: 25%;*/
 }
 
 .color-two-divider {
-    display: inline-block;
-    margin: 0px;
-    /*border: 1px solid #444C5A;*/
+    /*display: inline-block;*/
+    /*margin: 0px;*/
     border: 1px solid #D0EAFC;
-    border-left: 0px;
-    border-right: 0px;
-    width: 25%;
+    /*border-left: 0px;*/
+    /*border-right: 0px;*/
+    /*width: 25%;*/
 }
 .color-three-divider {
-    display: inline-block;
-    margin: 0px;
+    /*display: inline-block;*/
+    /*margin: 0px;*/
     border: 1px solid #A4B3B9;
-    border-left: 0px;
-    border-right: 0px;
-    width: 25%;
+    /*border-left: 0px;*/
+    /*border-right: 0px;*/
+    /*width: 25%;*/
 }
 .color-four-divider {
+    border: 1px solid #EB4A30;
+}
+.color-one-divider, .color-two-divider, .color-three-divider, .color-four-divider {
     display: inline-block;
     margin: 0px;
-    border: 1px solid #EB4A30;
     border-left: 0px;
     border-right: 0px;
     width: 25%;
