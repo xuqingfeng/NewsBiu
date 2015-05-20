@@ -40,7 +40,7 @@ class Security extends \Phalcon\Mvc\User\Plugin {
             'adminResources'  => [
             ],
             'rootResources'   => [
-                'root' => ['createUser']
+                'root' => ['createUser', 'reset']
             ]
         ];
 

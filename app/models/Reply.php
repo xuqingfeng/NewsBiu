@@ -16,10 +16,10 @@ class Reply extends \Phalcon\Mvc\Collection {
     public $updateAt;
 
 //    private $config;
-    public function initialize(){
+//    public function initialize(){
 
 //        $this->config = $this->getDI()->getShared('config');
-    }
+//    }
 
     public function addReply($params){
 

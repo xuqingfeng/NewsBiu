@@ -81,20 +81,24 @@ class Vote extends \Phalcon\Mvc\Collection {
         // update news/question
         $ids = explode('/', $params['targetId']);
         $p = [
-            'date'      => $ids[0],
-            'time'      => $ids[1],
-            'voter'     => $params['voter'],
-            'voteValue' => $params['voteValue']
+            'date'       => $ids[0],
+            'time'       => $ids[1],
+            'voter'      => $params['voter'],
+            'voteValue'  => $params['voteValue'],
+            'scoreValue' => 5
         ];
 
         if ('news' == $params['targetType']) {
 //            $this->news->voteUp($p);
             $news = new News();
             $news->voteUp($p);
+            // add score
+            $news->addScore($p);
         } else if ('question' == $params['targetType']) {
 //            $this->question->voteUp($p);
             $question = new Question();
             $question->voteUp($p);
+            $question->addScore($p);
         }
 
     }
@@ -119,19 +123,23 @@ class Vote extends \Phalcon\Mvc\Collection {
 
         $ids = explode('/', $params['targetId']);
         $p = [
-            'date'      => $ids[0],
-            'time'      => $ids[1],
-            'voter'     => $params['voter'],
-            'voteValue' => $params['voteValue']
+            'date'       => $ids[0],
+            'time'       => $ids[1],
+            'voter'      => $params['voter'],
+            'voteValue'  => $params['voteValue'],
+            'scoreValue' => -2
         ];
         if ('news' == $params['targetType']) {
 //            $this->news->voteDown($p);
             $news = new News();
             $news->voteDown($p);
+            // add score
+            $news->addScore($p);
         } else if ('question' == $params['targetType']) {
 //            $this->question->voteDown($p);
             $question = new Question();
             $question->voteDown($p);
+            $question->addScore($p);
         }
 
     }

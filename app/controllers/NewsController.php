@@ -48,13 +48,13 @@ class NewsController extends BaseController {
 
             if ($n) {
                 $this->view->setVars([
-                    'news'      => $n,
-                    'replies'   => $replies,
-                    'date'      => $date,
-                    'time'      => $time,
-                    'type'      => 'news',
-                    'voteValue' => $voteValue,
-                    'isPublisher'  => $isPublisher
+                    'news'        => $n,
+                    'replies'     => $replies,
+                    'date'        => $date,
+                    'time'        => $time,
+                    'type'        => 'news',
+                    'voteValue'   => $voteValue,
+                    'isPublisher' => $isPublisher
                 ]);
             } else {
                 return $this->dispatcher->forward([
@@ -67,26 +67,44 @@ class NewsController extends BaseController {
                 $replyContent = $this->request->getPost('reply');
                 $targetType = $this->request->getPost('targetType');
                 $now = date('Y-m-d H:i:s');
-                $user = new User();
-                $publisher = $user->getNameBySession();
-                $params = [
-                    'targetId'   => "$date/$time",
-                    'targetType' => $targetType,
-                    'publisher'  => $publisher,
-                    'body'       => $replyContent,
-                    'createAt'   => $now,
-                    'updateAt'   => $now
-                ];
-                $reply = new Reply();
-                if ($reply->addReply($params)) {
-                    $news->addComment($date, $time);
-                    $this->response->redirect($this->config->environment->homepage . "/n/$date/$time", true);
-                } else {
+                // ? can't use session ??
+//                $user = new User();
+//                $publisher = $user->getNameBySession();
+                if($this->session->has('auth')){
+                    $auth = $this->session->get('auth');
+                    $publisher = $auth['name'];
+                    $params = [
+                        'targetId'   => "$date/$time",
+                        'targetType' => $targetType,
+                        'publisher'  => $publisher,
+                        'body'       => $replyContent,
+                        'createAt'   => $now,
+                        'updateAt'   => $now
+                    ];
+                    $reply = new Reply();
+                    if ($reply->addReply($params)) {
+                        $news->addComment($date, $time);
+                        // add score
+                        $p = [
+                            'date'       => $date,
+                            'time'       => $time,
+                            'scoreValue' => 1
+                        ];
+                        $news->addScore($p);
+                        $this->response->redirect($this->config->environment->homepage . "/n/$date/$time", true);
+                    } else {
+                        return $this->dispatcher->forward([
+                            'controller' => 'error',
+                            'action'     => 'index'
+                        ]);
+                    }
+                }else{
                     return $this->dispatcher->forward([
                         'controller' => 'error',
                         'action'     => 'index'
                     ]);
                 }
+
             } else {
 //                echo 'csrf fail';
 //                $this->view->disable();

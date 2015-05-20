@@ -173,5 +173,19 @@ class Question extends \Phalcon\Mvc\Collection {
         }
     }
 
+    public function addScore($params){
+
+        $question = self::findFirst([
+            [
+                'date'=>$params['date'],
+                'time'=>$params['time']
+            ]
+        ]);
+        if($question){
+            $question->hotScore += $params['scoreValue'];
+            $question->save();
+        }
+    }
+
 
 }

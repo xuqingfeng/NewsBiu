@@ -72,6 +72,13 @@ try {
             'controller' => 'member',
             'action'     => 'notifications'
         ]);
+        $router->add('/root/reset/{collection:[a-z]+}/{name:[a-zA-Z0-9_]+}/{value:[a-zA-Z0-9_]+}', [
+            'controller' => 'root',
+            'action'     => 'reset',
+            'collection' => 1,
+            'name'       => 2,
+            'value'      => 3
+        ]);
 
         return $router;
     }, true);

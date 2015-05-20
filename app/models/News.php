@@ -72,12 +72,12 @@ class News extends \Phalcon\Mvc\Collection {
         return false;
     }
 
-    public function addComment($date, $time){
+    public function addComment($date, $time) {
 
         $news = self::findFirst([
             [
-                'date'=>$date,
-                'time'=>$time
+                'date' => $date,
+                'time' => $time
             ]
         ]);
         $news->comments++;
@@ -98,6 +98,7 @@ class News extends \Phalcon\Mvc\Collection {
 
     public function getLatestNews() {
 
+        // condition "or"?
         $news = self::find([
             [],
             'limit' => $this->limit
@@ -201,6 +202,27 @@ class News extends \Phalcon\Mvc\Collection {
         } else {
             // news does not exist
         }
+    }
+
+    /**
+     * @param $params
+     * vote - 5
+     * vote down - -2
+     * reply - 1
+     */
+    public function addScore($params) {
+
+        $news = self::findFirst([
+            [
+                'date' => $params['date'],
+                'time' => $params['time']
+            ]
+        ]);
+        if ($news) {
+            $news->hotScore += $params['scoreValue'];
+            $news->save();
+        }
+
     }
 
 }

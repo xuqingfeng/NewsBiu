@@ -64,8 +64,8 @@ class MemberController extends BaseController {
                         'avatarUrl'  => $userInfo['avatar_url'],
                         'email'      => $userInfo['email'],
                         'from'       => 'github',
+                        // change !!
                         'role'       => 'root',
-                        // reputation start at ?
                         'reputation' => $userInfo['public_repos'],
                         'createAt'   => $now,
                         'updateAt'   => $now

@@ -26,4 +26,22 @@ class RootController extends BaseController {
             $user->addUser($params);
         }
     }
+
+    public function resetAction(){
+
+        $collection = $this->dispatcher->getParam('collection');
+        $name = $this->dispatcher->getParam('name');
+        $value = $this->dispatcher->getParam('value');
+
+        if('news'==$collection){
+            $news = News::find();
+            foreach($news as $n){
+                $n->{$name} = (int)$value;
+                $n->save();
+                echo $n->{$name};
+            }
+
+        }
+        $this->view->disable();
+    }
 }
