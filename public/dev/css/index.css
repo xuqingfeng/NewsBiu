@@ -97,6 +97,11 @@ ul {
     height: 4rem;
     border-radius: .4rem;
 }
+.reply-profile-img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: .4rem;
+}
 
 .center-text {
     text-align: center;

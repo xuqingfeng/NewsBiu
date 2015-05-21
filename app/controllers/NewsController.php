@@ -166,7 +166,7 @@ class NewsController extends BaseController {
                         'time'      => date('His'),
                         'title'     => $title,
                         'link'      => $link,
-                        'showLink'  => $news->getDomain($link),
+//                        'showLink'  => $news->getDomain($link),
                         'body'      => $body,
                         'publisher' => $publisher,
                         'createAt'  => $now,

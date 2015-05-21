@@ -21,7 +21,7 @@ class News extends \Phalcon\Mvc\Collection {
     public $createAt;
     public $updateAt;
 
-    private $e;
+    private $escaper;
     private $limit;
     private $parsedown;
 
@@ -29,8 +29,9 @@ class News extends \Phalcon\Mvc\Collection {
 
     public function initialize() {
 
-        $this->e = new \Phalcon\Escaper();
         $this->limit = 10;
+
+        $this->escaper = $this->getDI()->getShared('escaper');
         $this->parsedown = $this->getDI()->getShared('parsedown');
 
         $this->user = new User();
@@ -51,13 +52,14 @@ class News extends \Phalcon\Mvc\Collection {
         $news = new News();
         $news->date = $params['date'];
         $news->time = $params['time'];
-        $news->title = $params['title'];
-//        $news->link = $this->e->escapeUrl($params['link']);
+        $news->title = $this->escaper->escapeHtml($params['title']);
+//        $news->link = $this->escaper->escapeUrl($params['link']);
         $news->link = $params['link'];
-        $news->showLink = $params['showLink'];
+        $news->showLink = $this->getDomain($params['link']);
         $news->body = $params['body'];
+        $news->parsedBody = $this->parsedown->setMarkupEscaped(true)->text($params['body']);
 //        $news->parsedBody = $this->e->escapeHtml($this->parsedown->text($params['body']));
-        $news->parsedBody = $this->parsedown->text($params['body']);
+//        $news->parsedBody = $this->escaper->escapeHtml($this->parsedown->setMarkupEscaped(true)->text($params['body']));
         $news->publisher = $params['publisher'];
         $news->voteUp = 0;
         $news->voteDown = 0;

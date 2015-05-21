@@ -131,8 +131,6 @@ try {
         $crypt = new \Phalcon\Crypt();
         $crypt->setKey($config->application->encryptKey);
 
-//        $crypt->setKey('NewsBiuIsAwesome');
-
         return $crypt;
     });
     $di->set('session', function () {
@@ -150,6 +148,10 @@ try {
     $di->set('parsedown', function () {
 
         return Parsedown::instance();
+    }, true);
+    $di->set('escaper', function () {
+
+        return new \Phalcon\Escaper();
     }, true);
 
     $app = new \Phalcon\Mvc\Application($di);

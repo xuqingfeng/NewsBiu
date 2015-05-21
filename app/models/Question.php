@@ -21,11 +21,13 @@ class Question extends \Phalcon\Mvc\Collection {
 
     private $limit;
     private $parsedown;
+    private $escaper;
 
     public function initialize() {
 
         $this->limit = 10;
         $this->parsedown = $this->getDI()->getShared('parsedown');
+        $this->escaper = $this->getDI()->getShared('escaper');
     }
 
     public function addQuestion($params) {
@@ -33,9 +35,9 @@ class Question extends \Phalcon\Mvc\Collection {
         $question = new Question();
         $question->date = $params['date'];
         $question->time = $params['time'];
-        $question->title = $params['title'];
+        $question->title = $this->escaper->escapeHtml($params['title']);
         $question->body = $params['body'];
-        $question->parsedBody = $this->parsedown->text($params['body']);
+        $question->parsedBody = $this->parsedown->setMarkupEscaped(true)->text($params['body']);
         $question->publisher = $params['publisher'];
         $question->voteUp = 0;
         $question->voteDown = 0;

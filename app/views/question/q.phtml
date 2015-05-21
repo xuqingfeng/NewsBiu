@@ -36,23 +36,25 @@
         //        var_dump($replies);
         if (isset($replies)):
             $user = new User();
+            $no = 0;
             foreach ($replies as $reply):
+                $no++;
                 ?>
                 <?php
                 $publisher = $reply->publisher;
                 $u = $user->getUserByName($publisher);
                 ?>
-                <div class="row">
-<!--                    <div class="one column">-->
-<!--                        <img src="--><?php //echo $u->avatarUrl;?><!--" alt="" class="profile-img"/>-->
-<!--                    </div>-->
-                    <div class="eleven columns">
+                <div class="row split">
+                    <div class="one column desktop-only">
+                        <img src="<?php echo $u->avatarUrl;?>" alt="" class="reply-profile-img"/>
+                    </div>
+                    <div class="ten columns">
                         <?php echo $reply->parsedBody;?>
                         <br/>
                         <a href="/m/<?php echo $reply->publisher; ?>"><?php echo $reply->publisher; ?></a> • <?php echo $reply->createAt; ?>
                     </div>
                     <div class="one column">
-                        <span>#1</span>
+                        <a href="<?php echo "#$no";?>" name="<?php echo "$no";?>">#<?php echo $no;?></a>
                     </div>
                 </div>
             <?php

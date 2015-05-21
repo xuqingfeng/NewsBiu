@@ -15,11 +15,14 @@ class Reply extends \Phalcon\Mvc\Collection {
     public $createAt;
     public $updateAt;
 
-//    private $config;
-//    public function initialize(){
+    private $escaper;
+    private $parsedown;
 
-//        $this->config = $this->getDI()->getShared('config');
-//    }
+    public function initialize(){
+
+        $this->parsedown = $this->getDI()->getShared('parsedown');
+        $this->escaper = $this->getDI()->getShared('escaper');
+    }
 
     public function addReply($params){
 
@@ -28,7 +31,8 @@ class Reply extends \Phalcon\Mvc\Collection {
         $reply->targetType = $params['targetType'];
         $reply->publisher = $params['publisher'];
         $reply->body = $params['body'];
-        $reply->parsedBody = $this->parseBody($params['body']);
+//        $reply->parsedBody = $this->escaper->escapeHtml($this->parseBody($params['body']));
+        $reply->parsedBody = $this->parseBody($this->parsedown->setMarkupEscaped(true)->text($params['body']));
         $reply->createAt = $params['createAt'];
         $reply->updateAt = $params['updateAt'];
 
@@ -42,16 +46,16 @@ class Reply extends \Phalcon\Mvc\Collection {
 
         $patterns = [
             "/\@([a-zA-Z0-9_]+[\s]+)/",
-            "/(((https?|ftp)\:\/\/)?".
-            "([a-z0-9-.]*)\.([a-z]{2,3})".
-            "(\:[0-9]{2,5})?".
-            "(\/([a-z0-9+\$_-]\.?)+)*\/?".
-            "(\?[a-z+&\$_.-][a-z0-9;:@&%=+\/\$_.-]*)?".
-            "(#[a-z_.-][a-z0-9+\$_.-]*)?)/"
+//            "/(((https?|ftp)\:\/\/)?".
+//            "([a-z0-9-.]*)\.([a-z]{2,3})".
+//            "(\:[0-9]{2,5})?".
+//            "(\/([a-z0-9+\$_-]\.?)+)*\/?".
+//            "(\?[a-z+&\$_.-][a-z0-9;:@&%=+\/\$_.-]*)?".
+//            "(#[a-z_.-][a-z0-9+\$_.-]*)?)/"
         ];
         $replacements = [
             '@<a href="/m/$1" target="_blank">$1</a>',
-            '<a href="$1" target="_blank">$1</a>'
+//            '<a href="$1" target="_blank">$1</a>'
         ];
 
         $parsedBody = preg_replace($patterns, $replacements, $body);
