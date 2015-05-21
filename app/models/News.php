@@ -25,7 +25,7 @@ class News extends \Phalcon\Mvc\Collection {
     private $limit;
     private $parsedown;
 
-    private $user;
+//    private $user;
 
     public function initialize() {
 
@@ -34,7 +34,7 @@ class News extends \Phalcon\Mvc\Collection {
         $this->escaper = $this->getDI()->getShared('escaper');
         $this->parsedown = $this->getDI()->getShared('parsedown');
 
-        $this->user = new User();
+//        $this->user = new User();
     }
 
     public function getDomain($url) {
@@ -57,7 +57,8 @@ class News extends \Phalcon\Mvc\Collection {
         $news->link = $params['link'];
         $news->showLink = $this->getDomain($params['link']);
         $news->body = $params['body'];
-        $news->parsedBody = $this->parsedown->setMarkupEscaped(true)->text($params['body']);
+        $site = new Site();
+        $news->parsedBody = $site->parseMentionedUsers($this->parsedown->setMarkupEscaped(true)->text($params['body']));
 //        $news->parsedBody = $this->e->escapeHtml($this->parsedown->text($params['body']));
 //        $news->parsedBody = $this->escaper->escapeHtml($this->parsedown->setMarkupEscaped(true)->text($params['body']));
         $news->publisher = $params['publisher'];
@@ -68,6 +69,28 @@ class News extends \Phalcon\Mvc\Collection {
         $news->createAt = $params['createAt'];
         $news->updateAt = $params['updateAt'];
         if ($news->save()) {
+            // notify
+            $mentionedUsers = $site->getMentionedUsers($params['body']);
+            if (!empty($mentionedUsers)) {
+                $now = date('Y-m-d H:i:s');
+                $notification = new Notification();
+                $p = [
+                    'sender'   => $params['publisher'],
+                    'receiver' => '',
+                    'type'     => 1,
+                    'topic'    => $news->title,
+                    'link'     => "/n/" . $params['date'] . "/" . $params['time'],
+                    'createAt' => $now,
+                    'updateAt' => $now
+                ];
+                $user = new User();
+                foreach ($mentionedUsers as $u) {
+                    $p['receiver'] = $u;
+                    $notification->addNotification($p);
+                    $user->changeNotifiedState($u, 0);
+                }
+            }
+
             return true;
         }
 
@@ -150,6 +173,19 @@ class News extends \Phalcon\Mvc\Collection {
             // $this->user->voteUp($p);
             $user = new User();
             $user->votedUp($p);
+
+            // notify
+            $notificationParams = [
+                'sender'   => $params['voter'],
+                'receiver' => $news->publisher,
+                'type'     => 3,
+                'topic'    => $news->title,
+                'link'     => "/n/" . $news->date . "/" . $news->time,
+                'createAt' => $now,
+                'updateAt' => $now
+            ];
+            $site = new Site();
+            $site->voteNotify($notificationParams);
         }
     }
 
@@ -171,14 +207,25 @@ class News extends \Phalcon\Mvc\Collection {
                 'voteValue' => $params['voteValue']
             ];
             $now = date('Y-m-d H:i:s');
-//            $news->voteDown = $news->voteDown + 1;
             $news->voteDown++;
             $news->updateAt = $now;
             $news->save();
 
-//            $this->user->voteDown($p);
             $user = new User();
             $user->votedDown($p);
+
+            // notify
+            $notificationParams = [
+                'sender'   => $params['voter'],
+                'receiver' => $news->publisher,
+                'type'     => 4,
+                'topic'    => $news->title,
+                'link'     => "/n/" . $news->date . "/" . $news->time,
+                'createAt' => $now,
+                'updateAt' => $now
+            ];
+            $site = new Site();
+            $site->voteNotify($notificationParams);
         }
 
     }

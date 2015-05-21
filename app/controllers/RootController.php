@@ -42,6 +42,15 @@ class RootController extends BaseController {
             }
 
         }
+
+        if('user'==$collection){
+            $user = User::find();
+            foreach($user as $u){
+                $u->{$name} = (int)$value;
+                $u->save();
+                echo $u->{$name};
+            }
+        }
         $this->view->disable();
     }
 }

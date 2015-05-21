@@ -36,7 +36,7 @@
     </div>
     <!-- get replies   -->
     <hr/>
-    <div class="row">
+<!--    <div class="row">-->
         <?php
         //        var_dump($replies);
         if (isset($replies)):
@@ -50,15 +50,14 @@
                 $u = $user->getUserByName($publisher);
                 ?>
                 <div class="row">
-                    <div class="one column desktop-only">
-                        <img src="<?php echo $u->avatarUrl;?>" alt="" class="reply-profile-img"/>
+                    <div class="two columns desktop-only">
+                        <img src="<?php echo $u->avatarUrl;?>" alt="reply-profile-img" class="reply-profile-img"/>
                     </div>
-                    <div class="ten columns">
+                    <div class="nine columns">
                         <?php echo $reply->parsedBody;?>
-                        <br/>
                         <a href="/m/<?php echo $reply->publisher; ?>"><?php echo $reply->publisher; ?></a> • <?php echo $reply->createAt; ?>
                     </div>
-                    <div class="one column">
+                    <div class="one column desktop-only">
                         <a href="<?php echo "#$no";?>" name="<?php echo "$no";?>">#<?php echo $no;?></a>
                     </div>
                 </div>
@@ -66,7 +65,7 @@
             endforeach;
         endif;
         ?>
-    </div>
+<!--    </div>-->
 
     <br/>
     <?php
@@ -86,7 +85,7 @@
                     <input type="hidden" name="<?php echo $this->security->getTokenKey();?>"
                            value="<?php echo $this->security->getToken();?>"/>
                     <input type="hidden" name="targetType" value="news"/>
-                    <textarea name="reply" cols="30" rows="10" class="u-full-width"></textarea>
+                    <textarea name="reply" cols="30" rows="10" class="u-full-width reply-area"></textarea>
                     <input type="submit" class="button-primary u-pull-right" value="Reply"/>
                 </form>
             </div>

@@ -13,10 +13,10 @@ class ReplyTest extends \UnitTestCase {
         $this->reply = new \Reply();
     }
 
-    public function testParseBody(){
-
-        $parsedBody = $this->reply->parseBody('@xuqingfeng baidu.com');
-        $this->assertEquals('@<a href="/m/xuqingfeng " target="_blank">xuqingfeng </a><a href="baidu.com" target="_blank">baidu.com</a>', $parsedBody, 'not good');
-    }
+//    public function testParseBody(){
+//
+//        $parsedBody = $this->reply->parseBody('@xuqingfeng baidu.com');
+//        $this->assertEquals('@<a href="/m/xuqingfeng " target="_blank">xuqingfeng </a><a href="baidu.com" target="_blank">baidu.com</a>', $parsedBody, 'not good');
+//    }
 
 }

@@ -37,7 +37,8 @@ class Question extends \Phalcon\Mvc\Collection {
         $question->time = $params['time'];
         $question->title = $this->escaper->escapeHtml($params['title']);
         $question->body = $params['body'];
-        $question->parsedBody = $this->parsedown->setMarkupEscaped(true)->text($params['body']);
+        $site = new Site();
+        $question->parsedBody = $site->parseMentionedUsers($this->parsedown->setMarkupEscaped(true)->text($params['body']));
         $question->publisher = $params['publisher'];
         $question->voteUp = 0;
         $question->voteDown = 0;
@@ -47,6 +48,28 @@ class Question extends \Phalcon\Mvc\Collection {
         $question->updateAt = $params['updateAt'];
 
         if ($question->save()) {
+            // notify
+            $mentionedUsers = $site->getMentionedUsers($params['body']);
+            if(!empty($mentionedUsers)){
+                $now = date('Y-m-d H:i:s');
+                $notification = new Notification();
+                $p = [
+                    'sender'   => $params['publisher'],
+                    'receiver' => '',
+                    'type'     => 1,
+                    'topic'    => $question->title,
+                    'link'     => "/q/" . $params['date'] . "/" . $params['time'],
+                    'createAt' => $now,
+                    'updateAt' => $now
+                ];
+                $user = new User();
+                foreach($mentionedUsers as $u){
+                    $p['receiver'] = $u;
+                    $notification->addNotification($p);
+                    $user->changeNotifiedState($u, 0);
+                }
+            }
+
             return true;
         }
 
@@ -125,6 +148,18 @@ class Question extends \Phalcon\Mvc\Collection {
             $user = new User();
             $user->votedUp($p);
 
+            // nofity
+            $notificationParams = [
+                'sender'   => $params['voter'],
+                'receiver' => $question->publisher,
+                'type'     => 3,
+                'topic'    => $question->title,
+                'link'     => "/q/" . $question->date . "/" . $question->time,
+                'createAt' => $now,
+                'updateAt' => $now
+            ];
+            $site = new Site();
+            $site->voteNotify($notificationParams);
         }
     }
 
@@ -151,6 +186,19 @@ class Question extends \Phalcon\Mvc\Collection {
 
             $user = new User();
             $user->votedDown($p);
+
+            // nofity
+            $notificationParams = [
+                'sender'   => $params['voter'],
+                'receiver' => $question->publisher,
+                'type'     => 4,
+                'topic'    => $question->title,
+                'link'     => "/q/" . $question->date . "/" . $question->time,
+                'createAt' => $now,
+                'updateAt' => $now
+            ];
+            $site = new Site();
+            $site->voteNotify($notificationParams);
         }
 
     }

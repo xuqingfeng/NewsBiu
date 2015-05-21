@@ -180,3 +180,7 @@ ul {
     width: 1.5rem;
     height: 1.5rem;
 }
+
+.reply-area {
+    min-height: 65px;
+}

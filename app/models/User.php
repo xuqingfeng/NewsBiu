@@ -13,6 +13,8 @@ class User extends \Phalcon\Mvc\Collection {
     public $role;
     public $from;
     public $reputation;
+    // 0-hasn't 1-has
+    public $notified;
     public $createAt;
     public $updateAt;
 
@@ -61,6 +63,7 @@ class User extends \Phalcon\Mvc\Collection {
             $user->role = $params['role'];
             $user->from = $params['from'];
             $user->reputation = $params['reputation'];
+            $user->notified = 1;
             $user->createAt = $params['createAt'];
             $user->updateAt = $params['updateAt'];
 
@@ -244,6 +247,19 @@ class User extends \Phalcon\Mvc\Collection {
             return 0;
         }
 
+    }
+
+    public function changeNotifiedState($name, $state) {
+
+        $user = self::findFirst([
+            [
+                'name' => $name
+            ]
+        ]);
+        if ($user) {
+            $user->notified = $state;
+            $user->save();
+        }
     }
 
 }
