@@ -157,6 +157,7 @@ class NewsController extends BaseController {
 
                 if (isset($title) && isset($link)) {
                     $user = new User();
+                    // work?
                     $publisher = $user->getNameBySession();
                     $news = new News();
                     $now = date('Y-m-d H:i:s');

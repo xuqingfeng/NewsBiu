@@ -11,11 +11,11 @@
             <input type="hidden" name="<?php echo $this->security->getTokenKey();?>" value="<?php echo $this->security->getToken();?>"/>
             <div class="twelve columns">
                 <label for="">Title</label>
-                <input name="title" type="text" class="u-full-width" required/>
+                <input name="title" type="text" class="u-full-width" required autocomplete="off"/>
             </div>
             <div class="twelve columns">
                 <label for="">Link</label>
-                <input name="link" type="url" class="u-full-width" required/>
+                <input name="link" type="url" class="u-full-width" required autocomplete="off"/>
             </div>
             <div class="twelve columns">
                 <label for="">Text</label>

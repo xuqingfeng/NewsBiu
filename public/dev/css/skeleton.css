@@ -45,6 +45,11 @@
   .desktop-only {
     display: none !important;
   }
+
+  .whoops-img {
+    width: 200px !important;
+    height: 150px !important;
+  }
 }
 
 /* For devices larger than 400px */
@@ -55,6 +60,11 @@
 
   .desktop-only {
     display: none !important;
+  }
+
+  .whoops-img {
+    width: 200px !important;
+    height: 150px !important;
   }
 }
 
@@ -122,6 +132,11 @@
 
   .desktop-only {
     display: block !important;
+  }
+
+  .whoops-img {
+    width: 400px !important;
+    height: 300px !important;
   }
 
 }
