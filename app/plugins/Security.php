@@ -9,6 +9,9 @@ class Security extends \Phalcon\Mvc\User\Plugin {
     public function getAcl() {
 
 //        if (!isset($this->persistent->acl)) {
+
+
+
         $acl = new \Phalcon\Acl\Adapter\Memory();
         $acl->setDefaultAction(\Phalcon\Acl::DENY);
 
@@ -22,6 +25,8 @@ class Security extends \Phalcon\Mvc\User\Plugin {
         $acl->addRole($roles['member'], $roles['guest']);
         $acl->addRole($roles['admin'], $roles['member']);
         $acl->addRole($roles['root'], $roles['admin']);
+
+
 
         $allResources = [
             'guestResources'  => [

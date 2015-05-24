@@ -1,9 +1,9 @@
 <?php
+
 /**
  * Author: xuqingfeng <js-xqf@hotmail.com>
  * Date: 15/5/21
  */
-
 class Notification extends \Phalcon\Mvc\Collection {
 
     public $sender;
@@ -15,7 +15,9 @@ class Notification extends \Phalcon\Mvc\Collection {
     public $createAt;
     public $updateAt;
 
-    public function addNotification($params){
+    private static $limit = 15;
+
+    public function addNotification($params) {
 
         $notification = new Notification();
         $notification->sender = $params['sender'];
@@ -26,10 +28,24 @@ class Notification extends \Phalcon\Mvc\Collection {
         $notification->createAt = $params['createAt'];
         $notification->updateAt = $params['updateAt'];
 
-        if($notification->save()){
+        if ($notification->save()) {
             return true;
         }
+
         return false;
+    }
+
+    public function getNotifications($receiver) {
+
+        $notifications = self::find([
+            [
+                'receiver' => $receiver
+            ],
+            'sort'  => ['createAt' => 1],
+            'limit' => self::$limit
+        ]);
+
+        return $notifications;
     }
 
 }

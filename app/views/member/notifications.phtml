@@ -6,4 +6,55 @@
 
 ?>
 
-notifications
+<br/>
+<div class="container">
+    <?php
+    if ($notifications):
+        foreach ($notifications as $n):
+            ?>
+
+            <?php
+            if (1 === $n->type):
+                ?>
+                <div>
+                    Get mentioned at <a href="<?php echo $n->link;?>"><?php echo $n->topic; ?></a>
+                </div>
+            <?php
+            endif;
+            ?>
+
+            <?php
+            if (2 === $n->type):
+                ?>
+                <div>
+                    Get one reply: <?php echo $n->topic; ?>
+                </div>
+            <?php
+            endif;
+            ?>
+
+            <?php
+            if (3 === $n->type):
+                ?>
+                <div>
+                    Get voted at <a href="<?php echo $n->link;?>"><?php echo $n->topic; ?></a>
+                </div>
+            <?php
+            endif;
+            ?>
+
+            <?php
+            if (4 === $n->type):
+                ?>
+                <div>
+                    Get down voted at <a href="<?php echo $n->link;?>"><?php echo $n->topic; ?></a>
+                </div>
+            <?php
+            endif;
+            ?>
+
+        <?php
+        endforeach;
+    endif;
+    ?>
+</div>

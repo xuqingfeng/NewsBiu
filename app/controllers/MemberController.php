@@ -24,19 +24,19 @@ class MemberController extends BaseController {
     public function loginAction() {
 
         // fake xuqingfeng
-//        $this->session->set('auth', [
-//            'name' => 'xuqingfeng',
-//            'role' => 'root'
-//        ]);
+        $this->session->set('auth', [
+            'name' => 'xuqingfeng',
+            'role' => 'root'
+        ]);
 //        $this->session->set('auth', [
 //            'name' => 'jsxqf',
 //            'role' => 'member'
 //        ]);
-//        $this->response->redirect($this->config->environment->homepage, true);
+        $this->response->redirect($this->config->environment->homepage, true);
 
-//        var_dump($this->request->getHTTPReferer());
-        $this->session->set('referer', $this->request->getHTTPReferer());
-        $this->response->redirect(self::$githubAuthorizeUrl . "?client_id=" . $this->config->application->githubClientID . "&redirect_uri=" . self::$githubRedirectUrl . "&state=" . $this->config->application->githubState, true);
+
+//        $this->session->set('referer', $this->request->getHTTPReferer());
+//        $this->response->redirect(self::$githubAuthorizeUrl . "?client_id=" . $this->config->application->githubClientID . "&redirect_uri=" . self::$githubRedirectUrl . "&state=" . $this->config->application->githubState, true);
     }
 
     public function logoutAction() {
@@ -138,6 +138,17 @@ class MemberController extends BaseController {
     // notifications
     public function notificationsAction() {
 
+        $auth = $this->session->get('auth');
+        $name = $auth['name'];
+        $notification = new Notification();
+        $notifications = $notification->getNotifications($name);
+
+        $user = new User();
+        $user->changeNotifiedState($name, 1);
+
+        $this->view->setVars([
+            'notifications'=>$notifications
+        ]);
     }
 
     // vote up
