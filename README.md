@@ -3,6 +3,15 @@
 </div>
 ##News Biu
 
+###How to contribute
+
+[phalcon doc](http://docs.phalconphp.com/en/latest/index.html)
+
+[NBT](https://github.com/xuqingfeng/NBT)
+
 ###License
 GPLv2
 
+###Please support
+
+My DigitalOcean refer: [https://www.digitalocean.com/?refcode=81e62bd86cdc](https://www.digitalocean.com/?refcode=81e62bd86cdc)
