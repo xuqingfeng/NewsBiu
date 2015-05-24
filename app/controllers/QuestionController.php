@@ -58,6 +58,7 @@ class QuestionController extends BaseController {
             if ($q) {
                 $this->view->setVars([
                     'question'    => $q,
+                    'seoTitle'    => $q->title,
                     'replies'     => $replies,
                     'date'        => $date,
                     'time'        => $time,

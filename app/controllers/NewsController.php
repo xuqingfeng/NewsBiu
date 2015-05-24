@@ -62,6 +62,7 @@ class NewsController extends BaseController {
             if ($n) {
                 $this->view->setVars([
                     'news'        => $n,
+                    'seoTitle'    => $n->title,
                     'replies'     => $replies,
                     'date'        => $date,
                     'time'        => $time,

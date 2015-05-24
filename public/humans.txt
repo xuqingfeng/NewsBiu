@@ -1,5 +1,5 @@
 /* SITE */
-last update: 2015/05/14
+last update: 2015/05/24
 github repo: https://github.com/xuqingfeng/NewsBiu
 
 /* FOUNDER */
