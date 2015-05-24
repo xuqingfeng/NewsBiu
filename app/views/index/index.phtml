@@ -4,39 +4,9 @@
  * Date: 15/4/3
  */
 ?>
-<!---->
-<!--<div class="container">-->
-<!--    <nav>-->
-<!--        <ul class="navbar-list">-->
-<!--            <li class="navbar-item"><a href="/home" class="navbar-link">Home</a></li>-->
-<!--            <li class="navbar-item"><a href="/qna" class="navbar-link">Questions</a></li>-->
-<!--            --><?php
-//            //                var_dump($tab);
-//            //                echo 'tab in cookie:'.$this->cookies->get('NEWSBIUTAB')->getValue();
-//            //            var_dump($this->cookies->get('NEWSBIUTAB')->getValue());
-//            if ('home' == $tab):
-//                ?>
-<!--                <li class="navbar-item"><a href="/news/new" class="navbar-link">New</a></li>-->
-<!--            --><?php
-//            endif;
-//            ?>
-<!--            --><?php
-//            if ('qna' == $tab):
-//                ?>
-<!--                <li class="navbar-item"><a href="/question/new" class="navbar-link">Ask</a></li>-->
-<!--            --><?php
-//            endif;
-//            ?>
-<!--        </ul>-->
-<!--    </nav>-->
-<!---->
-<!--</div>-->
 
 <div class="container">
     <?php
-    //                var_dump($tab);
-    //                echo 'tab in cookie:'.$this->cookies->get('NEWSBIUTAB')->getValue();
-    //            var_dump($this->cookies->get('NEWSBIUTAB')->getValue());
     $homeActive = "";
     $questionsActive = "";
     if ('home' == $tab) {
@@ -46,8 +16,8 @@
         $questionsActive = "active-tab";
     }
     ?>
-    <a href="/home" class="tab <?php echo $homeActive;?>">Home</a>
-    <a href="/qna" class="tab <?php echo $questionsActive;?>">Questions</a>
+    <a href="/home" class="tab <?php echo $homeActive; ?>">Home</a>
+    <a href="/qna" class="tab <?php echo $questionsActive; ?>">Questions</a>
 </div>
 
 <div class="container">
@@ -77,19 +47,20 @@
             <div class="row split">
                 <div class="center-text one columns desktop-only">
                     <div data-icon="ei-chevron-up" data-size="s"></div>
-                    <div><?php echo ($n->voteUp - $n->voteDown);?></div>
+                    <div><?php echo($n->voteUp - $n->voteDown);?></div>
                 </div>
                 <div class="eleven columns">
-                    <div><a href="/n/<?php echo $n->date . '/' . $n->time;?>" class="main-title"><?php echo $n->title;?></a>
+                    <div><a href="/n/<?php echo $n->date . '/' . $n->time;?>"
+                            class="main-title"><?php echo $n->title;?></a>
 
                         <div class="u-pull-right">
                             <a href="<?php echo $n->link;?>" target="_blank"><?php echo $n->showLink;?></a>
                         </div>
-                        <!--                    <div class="u-pull-right">-->
-                        <!--                        <div data-icon="ei-link" data-size="s"></div>-->
-                        <!--                    </div>-->
                     </div>
-                    <div class="main-description"><a href="/m/<?php echo $n->publisher;?>"><?php echo $n->publisher;?></a> • <?php echo date('H:i', strtotime($n->createAt));?> • <?php echo $n->comments;?> comments</div>
+                    <div class="main-description"><a
+                            href="/m/<?php echo $n->publisher;?>"><?php echo $n->publisher;?></a>
+                        • <?php echo date('H:i', strtotime($n->createAt));?> • <?php echo $n->comments;?> comments
+                    </div>
                 </div>
             </div>
         <?php
@@ -110,9 +81,13 @@
                 </div>
                 <div class="eleven columns">
                     <div>
-                        <a href="/q/<?php echo $q->date . '/' . $q->time;?>" class="main-title"><?php echo $q->title;?></a>
+                        <a href="/q/<?php echo $q->date . '/' . $q->time;?>"
+                           class="main-title"><?php echo $q->title;?></a>
                     </div>
-                    <div class="main-description"><a href="/m/<?php echo $q->publisher;?>"><?php echo $q->publisher;?></a> • <?php echo date('H:i', strtotime($q->createAt));?> • <?php echo $q->comments;?> comments</div>
+                    <div class="main-description"><a
+                            href="/m/<?php echo $q->publisher;?>"><?php echo $q->publisher;?></a>
+                        • <?php echo date('H:i', strtotime($q->createAt));?> • <?php echo $q->comments;?> comments
+                    </div>
                 </div>
             </div>
         <?php
@@ -124,5 +99,9 @@
 
 <div class="container">
     <br/>
-    <a href="<?php if('home'==$tab){echo "/news/list";}else{echo "/question/list";}?>" class="u-pull-right">More</a>
+    <a href="<?php if ('home' == $tab) {
+        echo "/news/list";
+    } else {
+        echo "/question/list";
+    } ?>" class="u-pull-right">More</a>
 </div>

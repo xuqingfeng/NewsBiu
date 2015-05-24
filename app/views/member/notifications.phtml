@@ -16,7 +16,7 @@
             <?php
             if (1 === $n->type):
                 ?>
-                <div>
+                <div class="split">
                     Get mentioned at <a href="<?php echo $n->link;?>"><?php echo $n->topic; ?></a>
                 </div>
             <?php
@@ -26,7 +26,7 @@
             <?php
             if (2 === $n->type):
                 ?>
-                <div>
+                <div class="split">
                     Get one reply: <?php echo $n->topic; ?>
                 </div>
             <?php
@@ -36,7 +36,7 @@
             <?php
             if (3 === $n->type):
                 ?>
-                <div>
+                <div class="split">
                     Get voted at <a href="<?php echo $n->link;?>"><?php echo $n->topic; ?></a>
                 </div>
             <?php
@@ -46,13 +46,12 @@
             <?php
             if (4 === $n->type):
                 ?>
-                <div>
+                <div class="split">
                     Get down voted at <a href="<?php echo $n->link;?>"><?php echo $n->topic; ?></a>
                 </div>
             <?php
             endif;
             ?>
-
         <?php
         endforeach;
     endif;

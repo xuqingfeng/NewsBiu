@@ -10,13 +10,7 @@ class NewsController extends BaseController {
 
         $page = (int)$this->request->getQuery('p');
         $news = new News();
-//        if (isset($page) && $page >= 1) {
-//            $n = $news->getNewsByPage($page);
-//        } else {
-//            $page = 1;
-//            $n = $news->getNewsByPage($page);
-//        }
-        if(!isset($page) || $page < 1){
+        if (!isset($page) || $page < 1) {
             $page = 1;
         }
         $n = $news->getNewsByPage($page);
@@ -38,10 +32,6 @@ class NewsController extends BaseController {
 
         $date = $this->dispatcher->getParam('date');
         $time = $this->dispatcher->getParam('time');
-
-//        $user = new User();
-//        print_r($user->getNameBySession());
-//        exit;
 
         $news = new News();
         if ($this->request->isGet()) {
@@ -130,12 +120,12 @@ class NewsController extends BaseController {
 
             } else {
 //                echo 'csrf fail';
-//                $this->view->disable();
                 return $this->dispatcher->forward([
                     'controller' => 'error',
                     'action'     => 'index'
                 ]);
             }
+            $this->view->disable();
         }
 
 
@@ -166,7 +156,6 @@ class NewsController extends BaseController {
                         'time'      => date('His'),
                         'title'     => $title,
                         'link'      => $link,
-//                        'showLink'  => $news->getDomain($link),
                         'body'      => $body,
                         'publisher' => $publisher,
                         'createAt'  => $now,
@@ -181,19 +170,22 @@ class NewsController extends BaseController {
                         ]);
                     }
                 } else {
-                    // flash message
+                    // flash message ?
                     return $this->dispatcher->forward([
                         'controller' => 'error',
                         'action'     => 'index'
                     ]);
                 }
             } else {
-                echo 'csrf fail';
+//                echo 'csrf fail';
+                return $this->dispatcher->forward([
+                    'controller' => 'error',
+                    'action'     => 'index'
+                ]);
             }
             $this->view->disable();
 
         }
-
     }
 
 }

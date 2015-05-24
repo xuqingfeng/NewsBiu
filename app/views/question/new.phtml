@@ -8,14 +8,17 @@
 <div class="container">
     <div class="row">
         <form action="" method="post">
-            <input type="hidden" name="<?php echo $this->security->getTokenKey();?>" value="<?php echo $this->security->getToken();?>"/>
+            <input type="hidden" name="<?php echo $this->security->getTokenKey(); ?>"
+                   value="<?php echo $this->security->getToken(); ?>"/>
+
             <div class="twelve columns">
                 <label for="">Title</label>
                 <input name="title" type="text" class="u-full-width" required/>
             </div>
             <div class="twelve columns">
                 <label for="">Text</label>
-                <textarea name="body" cols="30" rows="10" class="u-full-width" placeholder="Markdown is supported !"></textarea>
+                <textarea name="body" cols="30" rows="10" class="u-full-width"
+                          placeholder="Markdown is supported !"></textarea>
             </div>
             <input type="submit" class="button-primary u-pull-right" value="Submit"/>
         </form>

@@ -50,7 +50,7 @@ class Question extends \Phalcon\Mvc\Collection {
         if ($question->save()) {
             // notify
             $mentionedUsers = $site->getMentionedUsers($params['body']);
-            if(!empty($mentionedUsers)){
+            if (!empty($mentionedUsers)) {
                 $now = date('Y-m-d H:i:s');
                 $notification = new Notification();
                 $p = [
@@ -63,7 +63,7 @@ class Question extends \Phalcon\Mvc\Collection {
                     'updateAt' => $now
                 ];
                 $user = new User();
-                foreach($mentionedUsers as $u){
+                foreach ($mentionedUsers as $u) {
                     $p['receiver'] = $u;
                     $notification->addNotification($p);
                     $user->changeNotifiedState($u, 0);
@@ -221,13 +221,13 @@ class Question extends \Phalcon\Mvc\Collection {
             ];
             $now = date('Y-m-d H:i:s');
             if (1 === $params['voteValue']) {
-                $question->voteUp = $question->voteUp - 1;
+                $question->voteUp--;
                 $question->updateAt = $now;
                 $question->save();
             } else if (0 === $params['voteValue']) {
                 // do nothing
             } else if (-1 === $params['voteValue']) {
-                $question->voteDown = $question->voteDown - 1;
+                $question->voteDown--;
                 $question->updateAt = $now;
                 $question->save();
             }

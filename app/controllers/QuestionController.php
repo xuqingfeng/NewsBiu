@@ -76,8 +76,6 @@ class QuestionController extends BaseController {
                 $replyContent = $this->request->getPost('reply');
                 $targetType = $this->request->getPost('targetType');
                 $now = date('Y-m-d H:i:s');
-//                $user = new User();
-//                $publisher = $user->getNameBySession();
                 if ($this->session->has('auth')) {
                     $auth = $this->session->get('auth');
                     $publisher = $auth['name'];
@@ -115,12 +113,12 @@ class QuestionController extends BaseController {
 
             } else {
 //                echo 'csrf fail';
-//                $this->view->disable();
                 return $this->dispatcher->forward([
                     'controller' => 'error',
                     'action'     => 'index'
                 ]);
             }
+            $this->view->disable();
         }
 
 
@@ -159,10 +157,18 @@ class QuestionController extends BaseController {
                         ]);
                     }
                 } else {
-                    echo 'no title';
+//                    echo 'no title';
+                    return $this->dispatcher->forward([
+                        'controller' => 'error',
+                        'action'     => 'index'
+                    ]);
                 }
             } else {
-                echo 'csrf fail';
+//                echo 'csrf fail';
+                return $this->dispatcher->forward([
+                    'controller' => 'error',
+                    'action'     => 'index'
+                ]);
             }
             $this->view->disable();
         }

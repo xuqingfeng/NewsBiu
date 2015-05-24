@@ -24,18 +24,10 @@ class User extends \Phalcon\Mvc\Collection {
     private $config;
     private $session;
 
-    // !! 500
-    // xunhuan
-//    private $vote;
-
-
     public function initialize() {
 
-        // get service
         $this->config = $this->getDI()->getShared('config');
         $this->session = $this->getDI()->getShared('session');
-
-//        $this->vote = new Vote();
     }
 
     public function userExist($name) {
@@ -125,8 +117,7 @@ class User extends \Phalcon\Mvc\Collection {
         $postData = [
             'client_id'     => $this->config->application->githubClientID,
             'client_secret' => $this->config->application->githubClientSecret,
-            'code'          => $code,
-//                'redirect_uri'  => $this->config->environment->homepage.'/member/callback'
+            'code'          => $code
         ];
         // params required
         $ch = curl_init(self::$githubAccessTokenUrl . "?client_id=" . $this->config->application->githubClientID . "&client_secret=" . $this->config->application->githubClientSecret . "&code=" . $code);

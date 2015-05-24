@@ -12,9 +12,11 @@
             <img src="<?php echo $user->avatarUrl; ?>" alt="" class="profile-img"/>
         </div>
         <div class="eleven columns">
-            Joined At : <?php echo date('Y-m-d', strtotime( $user->createAt ));?> Reputation : <?php echo $user->reputation;?>
+            Joined at : <?php echo date('Y-m-d', strtotime( $user->createAt ));?>
             <br/>
-            <?php echo $user->updateAt;?>
+            Reputation : <?php echo $user->reputation;?>
+            <br/>
+<!--            --><?php //echo $user->updateAt;?>
         </div>
     </div>
 </div>

@@ -15,9 +15,13 @@
 <div class="container">
     <div class="row">
         <div class="center-text two columns vote desktop-only">
-            <div data-icon="ei-chevron-up" data-size="m" class="<?php if(1===$voteValue){echo 'vote-active';}?>"></div>
-            <div data-icon="ei-chevron-down" data-size="m" class="<?php if(-1===$voteValue){echo 'vote-active';}?>"></div>
-            <div id="vote-count"><?php echo ($news->voteUp - $news->voteDown); ?></div>
+            <div data-icon="ei-chevron-up" data-size="m" class="<?php if (1 === $voteValue) {
+                echo 'vote-active';
+            } ?>"></div>
+            <div data-icon="ei-chevron-down" data-size="m" class="<?php if (-1 === $voteValue) {
+                echo 'vote-active';
+            } ?>"></div>
+            <div id="vote-count"><?php echo($news->voteUp - $news->voteDown); ?></div>
         </div>
         <div class="ten columns">
             <div>
@@ -25,47 +29,51 @@
                     <?php echo $news->title; ?>
                 </div>
                 <a href="<?php echo $news->link; ?>" target="_blank"><?php echo $news->showLink; ?></a>
+
                 <div class="split"></div>
                 <div>
                     <?php echo $news->parsedBody; ?>
                 </div>
                 <br/>
-                <div class="detail-description"><a href="/m/<?php echo $news->publisher; ?>"><?php echo $news->publisher;?></a> • <?php echo $news->createAt;?> • <?php echo $news->comments;?> comments</div>
+
+                <div class="detail-description"><a
+                        href="/m/<?php echo $news->publisher; ?>"><?php echo $news->publisher; ?></a>
+                    • <?php echo $news->createAt; ?> • <?php echo $news->comments; ?> comments
+                </div>
             </div>
         </div>
     </div>
     <!-- get replies   -->
     <hr/>
-<!--    <div class="row">-->
-        <?php
-        //        var_dump($replies);
-        if (isset($replies)):
-            $user = new User();
-            $no = 0;
-            foreach ($replies as $reply):
-                $no++;
-                ?>
-                <?php
-                $publisher = $reply->publisher;
-                $u = $user->getUserByName($publisher);
-                ?>
-                <div class="row">
-                    <div class="two columns desktop-only">
-                        <img src="<?php echo $u->avatarUrl;?>" alt="reply-profile-img" class="reply-profile-img"/>
-                    </div>
-                    <div class="nine columns">
-                        <?php echo $reply->parsedBody;?>
-                        <a href="/m/<?php echo $reply->publisher; ?>"><?php echo $reply->publisher; ?></a> • <?php echo $reply->createAt; ?>
-                    </div>
-                    <div class="one column desktop-only">
-                        <a href="<?php echo "#$no";?>" name="<?php echo "$no";?>">#<?php echo $no;?></a>
-                    </div>
-                </div>
+    <?php
+    //        var_dump($replies);
+    if (isset($replies)):
+        $user = new User();
+        $no = 0;
+        foreach ($replies as $reply):
+            $no++;
+            ?>
             <?php
-            endforeach;
-        endif;
-        ?>
-<!--    </div>-->
+            $publisher = $reply->publisher;
+            $u = $user->getUserByName($publisher);
+            ?>
+            <div class="row">
+                <div class="two columns desktop-only">
+                    <img src="<?php echo $u->avatarUrl;?>" alt="reply-profile-img" class="reply-profile-img"/>
+                </div>
+                <div class="nine columns">
+                    <?php echo $reply->parsedBody;?>
+                    <a href="/m/<?php echo $reply->publisher; ?>"><?php echo $reply->publisher; ?></a>
+                    • <?php echo $reply->createAt; ?>
+                </div>
+                <div class="one column desktop-only">
+                    <a href="<?php echo "#$no";?>" name="<?php echo "$no";?>">#<?php echo $no;?></a>
+                </div>
+            </div>
+        <?php
+        endforeach;
+    endif;
+    ?>
 
     <br/>
     <?php
@@ -76,10 +84,6 @@
         $u = $user->getUserByName($name);
         ?>
         <div class="row">
-            <!--            <div class="two columns" align="center">-->
-            <!--                <img src="--><?php //echo $u->avatarUrl;
-            ?><!--" class="profile-img"/>-->
-            <!--            </div>-->
             <div class="ten columns u-pull-right">
                 <form action="" method="post">
                     <input type="hidden" name="<?php echo $this->security->getTokenKey();?>"
@@ -97,8 +101,8 @@
 </div>
 
 <script>
-    (function(){
+    (function () {
 
-    // here or in index ?
+        // here or in index ?
     })();
 </script>

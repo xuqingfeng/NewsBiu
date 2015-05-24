@@ -27,15 +27,15 @@ class RootController extends BaseController {
         }
     }
 
-    public function resetAction(){
+    public function resetAction() {
 
         $collection = $this->dispatcher->getParam('collection');
         $name = $this->dispatcher->getParam('name');
         $value = $this->dispatcher->getParam('value');
 
-        if('news'==$collection){
+        if ('news' == $collection) {
             $news = News::find();
-            foreach($news as $n){
+            foreach ($news as $n) {
                 $n->{$name} = (int)$value;
                 $n->save();
                 echo $n->{$name};
@@ -43,9 +43,9 @@ class RootController extends BaseController {
 
         }
 
-        if('user'==$collection){
+        if ('user' == $collection) {
             $user = User::find();
-            foreach($user as $u){
+            foreach ($user as $u) {
                 $u->{$name} = (int)$value;
                 $u->save();
                 echo $u->{$name};

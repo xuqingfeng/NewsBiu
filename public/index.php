@@ -16,9 +16,6 @@ try {
     ini_set('xdebug.var_display_max_children', -1);
     ini_set('xdebug.var_display_max_data', -1);
 
-//    print_r(get_loaded_extensions());
-//    exit;
-
     define('STATE', 'dev');
     if (STATE == 'dev') {
         $config = new \Phalcon\Config\Adapter\Ini(ROOT_PATH . 'app/config/config.dev.ini');
@@ -109,7 +106,7 @@ try {
     }, true);
     $di->set('mongo', function () use ($config) {
 
-        // '://' fuck me
+        // '://'
         $mongo = new MongoClient('mongodb://' . $config->database->username . ':' . $config->database->password . '@' . $config->database->host . ':' . $config->database->port);
 
         return $mongo->selectDB($config->database->name);

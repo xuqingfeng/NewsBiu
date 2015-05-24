@@ -161,6 +161,9 @@ ul {
 .nb-grey {
     color: #A4B3B9;
 }
+.nb-red {
+    color: #EB4A30;
+}
 .notification-active {
     fill: #EB4A30;
 }

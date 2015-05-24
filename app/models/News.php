@@ -25,16 +25,12 @@ class News extends \Phalcon\Mvc\Collection {
     private $limit;
     private $parsedown;
 
-//    private $user;
-
     public function initialize() {
 
         $this->limit = 10;
 
         $this->escaper = $this->getDI()->getShared('escaper');
         $this->parsedown = $this->getDI()->getShared('parsedown');
-
-//        $this->user = new User();
     }
 
     public function getDomain($url) {
@@ -164,7 +160,6 @@ class News extends \Phalcon\Mvc\Collection {
                 'voteValue' => $params['voteValue']
             ];
             $now = date('Y-m-d H:i:s');
-//            $news->voteUp = $news->voteUp + 1;
             $news->voteUp++;
             $news->updateAt = $now;
             $news->save();
@@ -249,13 +244,13 @@ class News extends \Phalcon\Mvc\Collection {
             ];
             $now = date('Y-m-d H:i:s');
             if (1 === $params['voteValue']) {
-                $news->voteUp = $news->voteUp - 1;
+                $news->voteUp--;
                 $news->updateAt = $now;
                 $news->save();
             } else if (0 === $params['voteValue']) {
                 // do nothing
             } else if (-1 === $params['voteValue']) {
-                $news->voteDown = $news->voteDown - 1;
+                $news->voteDown--;
                 $news->updateAt = $now;
                 $news->save();
             }

@@ -71,9 +71,6 @@
         $u = $user->getUserByName($name);
         ?>
         <div class="row">
-            <div class="two columns" align="center">
-<!--                <img src="--><?php //echo $u->avatarUrl;?><!--" class="profile-img"/>-->
-            </div>
             <div class="ten columns u-pull-right">
                 <form action="" method="post">
                     <input type="hidden" name="<?php echo $this->security->getTokenKey();?>" value="<?php echo $this->security->getToken();?>"/>

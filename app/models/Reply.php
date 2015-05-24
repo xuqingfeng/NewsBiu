@@ -53,7 +53,7 @@ class Reply extends \Phalcon\Mvc\Collection {
                     'updateAt' => $now
                 ];
                 $user = new User();
-                foreach($mentionedUsers as $u){
+                foreach ($mentionedUsers as $u) {
                     $p['receiver'] = $u;
                     $notification->addNotification($p);
                     $user->changeNotifiedState($u, 0);

@@ -11,7 +11,6 @@ class Security extends \Phalcon\Mvc\User\Plugin {
 //        if (!isset($this->persistent->acl)) {
 
 
-
         $acl = new \Phalcon\Acl\Adapter\Memory();
         $acl->setDefaultAction(\Phalcon\Acl::DENY);
 
@@ -25,7 +24,6 @@ class Security extends \Phalcon\Mvc\User\Plugin {
         $acl->addRole($roles['member'], $roles['guest']);
         $acl->addRole($roles['admin'], $roles['member']);
         $acl->addRole($roles['root'], $roles['admin']);
-
 
 
         $allResources = [
@@ -82,7 +80,7 @@ class Security extends \Phalcon\Mvc\User\Plugin {
         $allowed = $acl->isAllowed($role, $controller, $action);
         // Dispatcher has detected a cyclic routing causing stability problems
         if ($allowed != \Phalcon\Acl::ALLOW && $controller != 'error') {
-            // forward(''); does not work?
+            // forward(''); does not work
             $dispatcher->forward([
                 'controller' => 'error',
                 'action'     => 'index'

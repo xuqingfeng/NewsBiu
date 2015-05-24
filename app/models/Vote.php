@@ -13,15 +13,6 @@ class Vote extends \Phalcon\Mvc\Collection {
     public $createAt;
     public $updateAt;
 
-//    private $news;
-//    private $question;
-
-    public function initialize() {
-
-//        $this->news = new News();
-//        $this->question = new Question();
-    }
-
     public function addVote($params) {
 
         $vote = new Vote();
@@ -56,7 +47,6 @@ class Vote extends \Phalcon\Mvc\Collection {
 
     public function up($params) {
 
-        // still can vote when is voter..
         $v = self::findFirst([
             [
                 'targetId'   => $params['targetId'],
@@ -89,13 +79,11 @@ class Vote extends \Phalcon\Mvc\Collection {
         ];
 
         if ('news' == $params['targetType']) {
-//            $this->news->voteUp($p);
             $news = new News();
             $news->voteUp($p);
             // add score
             $news->addScore($p);
         } else if ('question' == $params['targetType']) {
-//            $this->question->voteUp($p);
             $question = new Question();
             $question->voteUp($p);
             $question->addScore($p);
@@ -130,13 +118,11 @@ class Vote extends \Phalcon\Mvc\Collection {
             'scoreValue' => -2
         ];
         if ('news' == $params['targetType']) {
-//            $this->news->voteDown($p);
             $news = new News();
             $news->voteDown($p);
             // add score
             $news->addScore($p);
         } else if ('question' == $params['targetType']) {
-//            $this->question->voteDown($p);
             $question = new Question();
             $question->voteDown($p);
             $question->addScore($p);
@@ -170,11 +156,9 @@ class Vote extends \Phalcon\Mvc\Collection {
                 'voteValue' => $originVoteValue
             ];
             if ('news' == $params['targetType']) {
-//                $this->news->cancelVote($p);
                 $news = new News();
                 $news->cancelVote($p);
             } else if ('question' == $params['targetType']) {
-//                $this->question->cancelVote($p);
                 $question = new Question();
                 $question->cancelVote($p);
             }
