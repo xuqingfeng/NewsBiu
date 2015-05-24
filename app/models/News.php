@@ -33,16 +33,6 @@ class News extends \Phalcon\Mvc\Collection {
         $this->parsedown = $this->getDI()->getShared('parsedown');
     }
 
-    public function getDomain($url) {
-
-        $components = parse_url($url);
-        if (isset($components['host'])) {
-            return $components['host'];
-        }
-
-        return 'unknown';
-    }
-
     public function addNews($params) {
 
         $news = new News();
@@ -51,9 +41,9 @@ class News extends \Phalcon\Mvc\Collection {
         $news->title = $this->escaper->escapeHtml($params['title']);
 //        $news->link = $this->escaper->escapeUrl($params['link']);
         $news->link = $params['link'];
-        $news->showLink = $this->getDomain($params['link']);
-        $news->body = $params['body'];
         $site = new Site();
+        $news->showLink = $site->getDomain($params['link']);
+        $news->body = $params['body'];
         $news->parsedBody = $site->parseMentionedUsers($this->parsedown->setMarkupEscaped(true)->text($params['body']));
 //        $news->parsedBody = $this->e->escapeHtml($this->parsedown->text($params['body']));
 //        $news->parsedBody = $this->escaper->escapeHtml($this->parsedown->setMarkupEscaped(true)->text($params['body']));

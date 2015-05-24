@@ -3,8 +3,20 @@
 /**
  * Author: xuqingfeng <js-xqf@hotmail.com>
  * Date: 15/4/14
+ *
+ * extends nothing, make tests pass
  */
-class Site extends \Phalcon\Mvc\Collection {
+class Site {
+
+    public function getDomain($url) {
+
+        $components = parse_url($url);
+        if (isset($components['host'])) {
+            return $components['host'];
+        }
+
+        return 'unknown';
+    }
 
 
     public function parseMentionedUsers($body) {

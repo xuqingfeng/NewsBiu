@@ -16,7 +16,7 @@ try {
     ini_set('xdebug.var_display_max_children', -1);
     ini_set('xdebug.var_display_max_data', -1);
 
-    define('STATE', 'prd');
+    define('STATE', 'dev');
     if (STATE == 'dev') {
         $config = new \Phalcon\Config\Adapter\Ini(ROOT_PATH . 'app/config/config.dev.ini');
     } else if (STATE == 'prd') {
