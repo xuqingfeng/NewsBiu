@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./TestHelper.php"
+<phpunit
          backupGlobals="false"
          backupStaticAttributes="false"
          verbose="true"
@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="true">
-    <testsuite name="Phalcon - Testsuite">
+    <testsuite name="TestSuite">
         <directory>./</directory>
     </testsuite>
 </phpunit>
