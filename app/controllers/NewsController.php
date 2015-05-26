@@ -14,11 +14,13 @@ class NewsController extends BaseController {
             $page = 1;
         }
         $n = $news->getNewsByPage($page);
+        $pageCount = $news->getPageCount();
 
         if ($n) {
             $this->view->setVars([
-                'news' => $n,
-                'page' => $page
+                'news'      => $n,
+                'page'      => $page,
+                'pageCount' => $pageCount
             ]);
         } else {
             return $this->dispatcher->forward([
@@ -35,6 +37,8 @@ class NewsController extends BaseController {
 
         $news = new News();
         if ($this->request->isGet()) {
+            // js
+//            $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
             $n = $news->getNews($date, $time);
             $reply = new Reply();
             $replies = $reply->getReplies("$date/$time", 'news');

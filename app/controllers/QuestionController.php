@@ -14,11 +14,13 @@ class QuestionController extends BaseController {
             $page = 1;
         }
         $q = $question->getQuestionsByPage($page);
+        $pageCount = $question->getPageCount();
 
         if ($q) {
             $this->view->setvars([
                 'questions' => $q,
-                'page'      => $page
+                'page'      => $page,
+                'pageCount' => $pageCount
             ]);
         } else {
             return $this->dispatcher->forward([

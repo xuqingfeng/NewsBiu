@@ -32,8 +32,21 @@
 <div class="container">
     <br/>
     <div class="row">
-        <a href="/question/list?p=<?php if($page<=1){ echo 1;}else{ echo $page-1;}?>" class="u-pull-left">prev</a>
-        <a href="/question/list?p=<?php echo $page+1;?>" class="u-pull-right">next</a>
+        <?php
+        if ($page > 1):
+            ?>
+            <a href="/question/list?p=<?php echo $page - 1;?>" class="u-pull-left">prev</a>
+        <?php
+        endif;
+        ?>
+
+        <?php
+        if ($page < $pageCount):
+            ?>
+            <a href="/question/list?p=<?php echo $page + 1;?>" class="u-pull-right">next</a>
+        <?php
+        endif;
+        ?>
     </div>
 </div>
 

@@ -132,6 +132,12 @@ class News extends \Phalcon\Mvc\Collection {
         return $news;
     }
 
+    public function getPageCount(){
+
+        $news = self::find();
+        return ceil(count($news) / $this->limit);
+    }
+
     public function voteUp($params) {
 
         $news = self::findFirst([

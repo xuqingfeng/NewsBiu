@@ -124,6 +124,13 @@ class Question extends \Phalcon\Mvc\Collection {
         return $questions;
     }
 
+    public function getPageCount(){
+
+        $questions = self::find();
+
+        return ceil(count($questions) / $this->limit);
+    }
+
     public function voteUp($params) {
 
         $question = self::findFirst([

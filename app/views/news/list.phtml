@@ -8,32 +8,48 @@
 <br/>
 <div class="container">
     <?php
-        foreach($news as $n):
-    ?>
-    <div class="row split">
-        <div class="center-text one columns desktop-only">
-            <div data-icon="ei-chevron-up" data-size="s"></div>
-            <div><?php echo ($n->voteUp - $n->voteDown);?></div>
-        </div>
-        <div class="eleven columns">
-            <div><a href="/n/<?php echo $n->date . '/' . $n->time;?>" class="main-title"><?php echo $n->title;?></a>
+    foreach ($news as $n):
+        ?>
+        <div class="row split">
+            <div class="center-text one columns desktop-only">
+                <div data-icon="ei-chevron-up" data-size="s"></div>
+                <div><?php echo($n->voteUp - $n->voteDown);?></div>
+            </div>
+            <div class="eleven columns">
+                <div><a href="/n/<?php echo $n->date . '/' . $n->time;?>" class="main-title"><?php echo $n->title;?></a>
 
-                <div class="u-pull-right">
-                    <a href="<?php echo $n->link;?>" target="_blank"><?php echo $n->showLink;?></a>
+                    <div class="u-pull-right">
+                        <a href="<?php echo $n->link;?>" target="_blank"><?php echo $n->showLink;?></a>
+                    </div>
+                </div>
+                <div class="main-description"><a href="/m/<?php echo $n->publisher;?>"><?php echo $n->publisher;?></a>
+                    • <?php echo date('Y-m-d', strtotime($n->createAt));?> • <?php echo $n->comments;?> comments
                 </div>
             </div>
-            <div class="main-description"><a href="/m/<?php echo $n->publisher;?>"><?php echo $n->publisher;?></a> • <?php echo date('Y-m-d', strtotime($n->createAt));?> • <?php echo $n->comments;?> comments</div>
         </div>
-    </div>
     <?php
-        endforeach;
+    endforeach;
     ?>
 </div>
 
 <div class="container">
     <br/>
+
     <div class="row">
-        <a href="/news/list?p=<?php if($page<=1){ echo 1;}else{ echo $page-1;}?>" class="u-pull-left">prev</a>
-        <a href="/news/list?p=<?php echo $page+1;?>" class="u-pull-right">next</a>
+        <?php
+        if ($page > 1):
+            ?>
+            <a href="/news/list?p=<?php echo $page - 1;?>" class="u-pull-left">prev</a>
+        <?php
+        endif;
+        ?>
+
+        <?php
+        if ($page < $pageCount):
+            ?>
+            <a href="/news/list?p=<?php echo $page + 1;?>" class="u-pull-right">next</a>
+        <?php
+        endif;
+        ?>
     </div>
 </div>
