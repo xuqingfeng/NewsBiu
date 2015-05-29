@@ -24,21 +24,26 @@ class MemberController extends BaseController {
     public function loginAction() {
 
         // fake xuqingfeng
-//        $this->session->set('auth', [
-//            'name' => 'xuqingfeng',
-//            'role' => 'root'
-//        ]);
+        $this->session->set('auth', [
+            'name' => 'xuqingfeng',
+            'role' => 'root'
+        ]);
         // fake jsxqf
 //        $this->session->set('auth', [
 //            'name' => 'jsxqf',
 //            'role' => 'member'
 //        ]);
-//        $this->response->redirect($this->config->environment->homepage, true);
+        $this->response->redirect($this->config->environment->homepage, true);
 
 
-        $this->session->set('referer', $this->request->getHTTPReferer());
-        $this->response->redirect(self::$githubAuthorizeUrl . "?client_id=" . $this->config->application->githubClientID . "&redirect_uri=" . self::$githubRedirectUrl . "&state=" . $this->config->application->githubState, true);
+//        $this->session->set('referer', $this->request->getHTTPReferer());
+//        $this->response->redirect(self::$githubAuthorizeUrl . "?client_id=" . $this->config->application->githubClientID .
+//            "&redirect_uri=" . self::$githubRedirectUrl . "&state=" . $this->config->application->githubState, true);
+
     }
+
+
+
 
     public function logoutAction() {
 

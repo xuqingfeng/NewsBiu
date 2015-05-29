@@ -33,6 +33,8 @@ class Site {
         return $parsedBody;
     }
 
+
+
     public function getMentionedUsers($body) {
 
         $users = [];
@@ -48,6 +50,8 @@ class Site {
 
         return $users;
     }
+
+
 
     public function voteNotify($params) {
 

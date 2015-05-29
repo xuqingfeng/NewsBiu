@@ -1,76 +1,89 @@
+/*overall*/
 a {
     text-decoration: none;
 }
+ul {
+    display: block;
+}
+.center-text {
+    text-align: center;
+}
+.split {
+    margin-bottom: 10px;
+    /*border-bottom: dotted .1rem #A4B3B9;*/
+}
 
+/*nav*/
 .navbar {
     display: block;
     width: 100%;
-    /*height: 6.5rem;*/
+    height: 6.5rem;
     background: #fff;
     z-index: 99;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 }
-
 .navbar-list {
     list-style: none;
     margin-bottom: 0;
 }
-
 .navbar-item {
     position: relative;
     float: left;
     margin-bottom: 0;
-    /*background-color: #00aff0;*/
 }
-
 .navbar-link {
     text-transform: uppercase;
-    font-size: 11px;
+    /*font-size: 11px;*/
+    font-size: 1.4rem;
     font-weight: 600;
     letter-spacing: .2rem;
-    margin-right: 35px;
     text-decoration: none;
     line-height: 6.5rem;
     color: #222;
 }
 
+/*profile-img settings notifications*/
 .avatar {
     margin-top: 1rem;
+    line-height: 2rem;
     position: relative;
     float: right;
     display: inline-block;
 }
-
-ul {
-    display: block;
+.profile-img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: .4rem;
 }
+
+/*tab: home, question*/
 .tab {
     color: #A4B3B9;
     margin-right: 30px;
     height: 44px;
-    line-height: 46px;
-    margin-bottom: -1px;
+    /*line-height: 46px;*/
+    line-height: 3rem;
+    /*margin-bottom: -1px;*/
     /*display: inline-block;*/
-    font-size: 15px;
+    font-size: 1.5rem;
     font-weight: 600;
     border-bottom: 2px solid transparent;
 }
-
 .active-tab {
     color: #1EAEDB;
     border-color: #1EAEDB;
 }
 
+/*new ask logout*/
 .new-button {
     display: inline-block;
-    height: 35px;
-    padding: 0 25px;
+    padding: 0 20px;
     color: #555;
     text-align: center;
     font-size: 11px;
-    font-weight: 600;
-    line-height: 38px;
+    font-weight: 400;
+    line-height: 30px;
     letter-spacing: .1rem;
     text-transform: uppercase;
     text-decoration: none;
@@ -82,35 +95,34 @@ ul {
     box-sizing: border-box;
 }
 
+/*home page*/
 .main-title {
     font-size: 2rem;
     font-weight: 400;
 }
+.main-description {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
 
+/*detail page*/
 .detail-title {
     font-size: 2.5rem;
     font-weight: 400;
 }
-
-.profile-img {
-    width: 4rem;
-    height: 4rem;
-    border-radius: .4rem;
+.detail-description {
+    font-size: 1.5rem;
+    font-weight: 400;
 }
 .reply-profile-img {
     width: 4rem;
     height: 4rem;
     border-radius: .4rem;
 }
-
-.center-text {
-    text-align: center;
+.reply-area {
+    min-height: 65px;
 }
 
-.split {
-    margin-bottom: 10px;
-    /*border-bottom: dotted .1rem #A4B3B9;*/
-}
 
 .color-one {
     color: #D0EAFC
@@ -126,6 +138,7 @@ ul {
 }
 
 
+/*footer*/
 .color-one-divider {
     border: 1px solid #CFC7A1;
 }
@@ -147,6 +160,7 @@ ul {
     width: 25%;
 }
 
+/*vote*/
 .vote > .icon--ei-chevron-up:hover {
     cursor: pointer;
 }
@@ -158,26 +172,20 @@ ul {
     fill: #CFC7A1;
 }
 
+/*custom color*/
 .nb-grey {
     color: #A4B3B9;
 }
 .nb-red {
     color: #EB4A30;
 }
+
+/*notification color*/
 .notification-active {
     fill: #EB4A30;
 }
 
-.main-description {
-    font-size: 1.3rem;
-    font-weight: 400;
-}
-
-.detail-description {
-    font-size: 1.5rem;
-    font-weight: 400;
-}
-
+/*icon*/
 .icon--m {
     width: 3rem;
     height: 3rem;
@@ -187,6 +195,3 @@ ul {
     height: 1.5rem;
 }
 
-.reply-area {
-    min-height: 65px;
-}

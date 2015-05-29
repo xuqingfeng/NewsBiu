@@ -120,7 +120,8 @@ class User extends \Phalcon\Mvc\Collection {
             'code'          => $code
         ];
         // params required
-        $ch = curl_init(self::$githubAccessTokenUrl . "?client_id=" . $this->config->application->githubClientID . "&client_secret=" . $this->config->application->githubClientSecret . "&code=" . $code);
+        $ch = curl_init(self::$githubAccessTokenUrl . "?client_id=" . $this->config->application->githubClientID .
+            "&client_secret=" . $this->config->application->githubClientSecret . "&code=" . $code);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

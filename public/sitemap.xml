@@ -18,6 +18,11 @@
         <changefreq>daily</changefreq>
     </url>
     <url>
+        <loc>https://newsbiu.org/humans.txt</loc>
+        <lastmod>2015-05-24T12:17:24+00:00</lastmod>
+        <changefreq>daily</changefreq>
+    </url>
+    <url>
         <loc>https://newsbiu.org/news/list</loc>
         <changefreq>hourly</changefreq>
     </url>
@@ -26,8 +31,11 @@
         <changefreq>hourly</changefreq>
     </url>
     <url>
-        <loc>https://newsbiu.org/humans.txt</loc>
-        <lastmod>2015-05-24T12:17:24+00:00</lastmod>
-        <changefreq>daily</changefreq>
+        <loc>https://newsbiu.org/sitemaps/news.xml</loc>
+        <changefreq>hourly</changefreq>
+    </url>
+    <url>
+        <loc>https://newsbiu.org/sitemaps/questions.xml</loc>
+        <changefreq>hourly</changefreq>
     </url>
 </urlset>

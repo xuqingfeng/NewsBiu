@@ -32,6 +32,6 @@ gulp.task('minify-js', function () {
 });
 
 gulp.task('copy-img', function () {
-    gulp.src('./dev/img')
-        .pipe(gulp.dest('./prd/'))
+    gulp.src('./dev/img/**/*')
+        .pipe(gulp.dest('./prd/img'))
 });
