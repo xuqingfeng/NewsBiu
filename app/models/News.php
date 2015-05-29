@@ -114,7 +114,7 @@ class News extends \Phalcon\Mvc\Collection {
             [
                 'date' => $date,
             ],
-            'sort'  => ['hotScore' => -1],
+            'sort'  => ['hotScore' => -1, 'createAt'=> -1],
             'limit' => $this->limit
         ]);
 
