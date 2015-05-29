@@ -16,7 +16,14 @@ try {
     ini_set('xdebug.var_display_max_children', -1);
     ini_set('xdebug.var_display_max_data', -1);
 
-    define('STATE', 'dev');
+    // REMOTE_HOST doesn't work
+    $domain = $_SERVER['SERVER_NAME'];
+    if (strpos($domain, 'newsbiu.org') === false) {
+        define('STATE', 'dev');
+    } else {
+        define('STATE', 'prd');
+    }
+
     if (STATE == 'dev') {
         $config = new \Phalcon\Config\Adapter\Ini(ROOT_PATH . 'app/config/config.dev.ini');
     } else if (STATE == 'prd') {

@@ -53,4 +53,5 @@ class RootController extends BaseController {
         }
         $this->view->disable();
     }
+
 }
