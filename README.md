@@ -2,7 +2,7 @@
 <img src="https://github.com/xuqingfeng/NewsBiu/blob/master/icon.png" alt="icon">
 </div>
 ##News Biu
-![](https://travis-ci.org/xuqingfeng/NewsBiu.svg)
+![](https://travis-ci.org/xuqingfeng/newsbiu.org.svg?branch=master)
 
 ###How to contribute
 

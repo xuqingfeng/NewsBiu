@@ -1,6 +1,6 @@
 /* SITE */
 last update: 2015/05/24
-github repo: https://github.com/xuqingfeng/NewsBiu
+github repo: https://github.com/xuqingfeng/newsbiu.org
 
 /* FOUNDER */
 name : xuqingfeng

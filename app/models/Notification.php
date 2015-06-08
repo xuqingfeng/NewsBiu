@@ -8,7 +8,7 @@ class Notification extends \Phalcon\Mvc\Collection {
 
     public $sender;
     public $receiver;
-    // 1-mention(news,question body;reply) 2-reply(receiver is publisher) 3-vote up 4-vote down
+    // 1-mention(@-news,question body;reply) 2-reply(receiver is publisher) 3-vote up 4-vote down
     public $type;
     public $topic;
     public $link;

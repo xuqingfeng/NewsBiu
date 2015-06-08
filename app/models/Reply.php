@@ -38,6 +38,7 @@ class Reply extends \Phalcon\Mvc\Collection {
         $reply->updateAt = $params['updateAt'];
 
         if ($reply->save()) {
+            // no reply, just @ - wrong
             // notify
             $mentionedUsers = $site->getMentionedUsers($params['body']);
             if (!empty($mentionedUsers)) {
