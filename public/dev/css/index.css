@@ -7,7 +7,7 @@ html {
 body {
     min-height: 100%;
     position: relative;
-    padding-bottom: 3em;
+    padding-bottom: 3rem;
 }
 a {
     text-decoration: none;
