@@ -20,7 +20,7 @@
                     <a href="/q/<?php echo $q->date . '/' . $q->time;?>" class="main-title"><?php echo $q->title;?></a>
                 </div>
                 <div class="main-description"><a href="/m/<?php echo $q->publisher;?>"><?php echo $q->publisher;?></a>
-                    • <?php echo date('Y-m-d', strtotime($q->createAt));?> • <?php echo $q->comments;?> comments
+                    <span class="desktop-only">• <?php echo date('Y-m-d', strtotime($q->createAt));?> • <?php echo $q->comments;?> comments</span>
                 </div>
             </div>
         </div>

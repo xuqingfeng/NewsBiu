@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="main-description"><a href="/m/<?php echo $n->publisher;?>"><?php echo $n->publisher;?></a>
-                    • <?php echo date('Y-m-d', strtotime($n->createAt));?> • <?php echo $n->comments;?> comments
+                    <span class="desktop-only">• <?php echo date('Y-m-d', strtotime($n->createAt));?> • <?php echo $n->comments;?> comments</span>
                 </div>
             </div>
         </div>
