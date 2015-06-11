@@ -131,7 +131,8 @@
   .offset-by-one-half.columns     { margin-left: 52%; }
 
   .desktop-only {
-    display: block !important;
+    /*display: block !important;*/
+    display: inline !important;
   }
 
   .whoops-img {
