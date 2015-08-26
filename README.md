@@ -4,6 +4,10 @@
 ##News Biu
 ![](https://travis-ci.org/xuqingfeng/newsbiu.org.svg?branch=master)
 
+###Notice
+
+newsbiu.org has been shut down!
+
 ###How to contribute
 
 [phalcon doc](http://docs.phalconphp.com/en/latest/index.html)
